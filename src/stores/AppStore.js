@@ -1,4 +1,6 @@
 import { EventEmitter } from "events"
+import dispatcher from '../dispatcher/AppDispatcher'
+import { Dispatcher } from "flux"
 
 class AppStore extends EventEmitter {
   constructor() {
@@ -32,8 +34,20 @@ class AppStore extends EventEmitter {
     // }
     this.emit("change")
   }
+
+  handleActions(action) {
+    switch(action.type) {
+      case "setCurrentUser": {
+        this.setCurrentUser(action.currentUser)
+      }
+    }
+  }
 }
 
 const appStore = new AppStore
+
+// This sets up a listener for any actions sent through dispatcher like this:
+// dispatcher.dispatch({type: "setCurrentUser", currentUser: {id: 2, email: "person@email.com"}})
+dispatcher.register(appStore.handleActions.bind(appStore))
 
 export default appStore
