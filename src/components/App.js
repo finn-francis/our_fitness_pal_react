@@ -1,6 +1,7 @@
 import React from 'react'
 import logo from '../assets/images/logo.svg'
 import '../assets/stylesheets/App.css'
+import AppStore from '../stores/AppStore'
 
 function App() {
   return (
