@@ -1,27 +1,28 @@
 import React from 'react'
-import logo from '../assets/images/logo.svg'
 import '../assets/stylesheets/App.css'
-import AppStore from '../stores/AppStore'
+import AuthStore from '../stores/AuthStore'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  )
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      auth: AuthStore.getAll()
+    }
+  }
+
+  componentDidMount() {
+    AuthStore.on("change", () => this.setState({auth: AuthStore.getAll()}))
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          Our Fitness Pal
+        </header>
+      </div>
+    )
+  }
 }
-
 export default App;

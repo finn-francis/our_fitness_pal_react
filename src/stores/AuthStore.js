@@ -1,11 +1,10 @@
 import { EventEmitter } from "events"
 import dispatcher from '../dispatcher/AppDispatcher'
-import { Dispatcher } from "flux"
 
-class AppStore extends EventEmitter {
+class AuthStore extends EventEmitter {
   constructor() {
     super()
-    this.state = {
+    this.auth = {
       currentUser: {
         id: 1,
         email: "finnfrancis@gmail.com"
@@ -14,22 +13,22 @@ class AppStore extends EventEmitter {
   }
 
   // In order to use this store the following code can be used:
-  // import AppStore from '../stores/AppStore'
+  // import AuthStore from '../stores/AuthStore'
   // constructor(props) {
   //   super(props)
-  //   this.state = AppStore.getAll()
+  //   this.state = AuthStore.getAll()
   // }
 
   getAll() {
-    return this.state
+    return this.auth
   }
 
   setCurrentUser(user) {
-    this.state.currentUser = user
+    this.auth.currentUser = user
     // This means that on change someone else can get this event like this:
     // componentWillMount() {
-    //   AppStore.on("change", () => {
-    //     this.setState(AppStore.getAll())
+    //   AuthStore.on("change", () => {
+    //     this.setState(AuthStore.getAll())
     //   })
     // }
     this.emit("change")
@@ -38,16 +37,16 @@ class AppStore extends EventEmitter {
   handleActions(action) {
     switch(action.type) {
       case "setCurrentUser": {
-        this.setCurrentUser(action.currentUser)
+        this.setCurrentUser(action.user)
       }
     }
   }
 }
 
-const appStore = new AppStore
+const authStore = new AuthStore()
 
 // This sets up a listener for any actions sent through dispatcher like this:
 // dispatcher.dispatch({type: "setCurrentUser", currentUser: {id: 2, email: "person@email.com"}})
-dispatcher.register(appStore.handleActions.bind(appStore))
+dispatcher.register(authStore.handleActions.bind(authStore))
 
-export default appStore
+export default authStore
