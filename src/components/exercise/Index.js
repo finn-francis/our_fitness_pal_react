@@ -9,16 +9,16 @@ class Index extends React.Component {
     }
   }
 
-  render() {
+  displayExercises() {
     const {exercises} = this.state
 
     return (
       <>
-        <ul className="list-group">
+        <ul id="exercise-list" className="list-group">
           {
             exercises.map(exercise => {
               return (
-                <li key={exercise.id} className="list-group-item">
+                <li key={exercise.id} className="list-group-item exercise-list-item">
                   {exercise.name}
                 </li>
               )
@@ -27,6 +27,18 @@ class Index extends React.Component {
         </ul>
       </>
     )
+  }
+
+  noExercises() {
+    return(
+      <h2 className='no-exercises'>
+        No exercises
+      </h2>
+    )
+  }
+
+  render() {
+    return this.state.exercises.length === 0 ? this.noExercises() : this.displayExercises()
   }
 }
 
