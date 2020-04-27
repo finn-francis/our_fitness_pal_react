@@ -8,6 +8,7 @@ import {
 
 import AuthStore from '../stores/AuthStore'
 import Home from './Home'
+import ExerciseIndex from './exercise/Index'
 
 
 class App extends React.Component {
@@ -27,6 +28,7 @@ class App extends React.Component {
     return (
       <Router>
         <Switch>
+          <Route path="/exercises" render={(props) => <ExerciseIndex {...props} {...this.state} />} />
           <Route path="/" render={(props) => <Home {...props} {...this.state} />} />
         </Switch>
       </Router>
