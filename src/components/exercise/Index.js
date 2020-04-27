@@ -1,12 +1,17 @@
 import React from 'react'
+import ExerciseIndexStore from '../../stores/exercise/IndexStore'
 
 class Index extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      exercises: []
+      exercises: ExerciseIndexStore.getAll()
     }
+  }
+
+  componentDidMount() {
+    ExerciseIndexStore.on("change", () => this.setState({exercises: ExerciseIndexStore.getAll()}))
   }
 
   displayExercises() {
