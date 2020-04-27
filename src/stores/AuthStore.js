@@ -36,9 +36,11 @@ class AuthStore extends EventEmitter {
 
   handleActions(action) {
     switch(action.type) {
-      case "setCurrentUser": {
+      case "setCurrentUser":
         this.setCurrentUser(action.user)
-      }
+        break;
+      default:
+        break;
     }
   }
 }
