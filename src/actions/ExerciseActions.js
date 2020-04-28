@@ -6,3 +6,10 @@ export const setExercises = (exercises) => {
     exercises: exercises
   })
 }
+
+export const updateExerciseForm = (exercise) => {
+  dispatcher.dispatch({
+    type: 'updateExerciseForm',
+    exercise: exercise
+  })
+}
