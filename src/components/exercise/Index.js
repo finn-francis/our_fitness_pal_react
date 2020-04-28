@@ -1,17 +1,22 @@
 import React from 'react'
 import ExerciseIndexStore from '../../stores/exercise/IndexStore'
+import ExerciseFormStore from '../../stores/exercise/FormStore'
+import FormModalButton from './FormModalButton'
+import FormModal from './FormModal'
 
 class Index extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      exercises: ExerciseIndexStore.getAll()
+      exercises: ExerciseIndexStore.getAll(),
+      exerciseForm: ExerciseFormStore.getAll()
     }
   }
 
   componentDidMount() {
     ExerciseIndexStore.on("change", () => this.setState({exercises: ExerciseIndexStore.getAll()}))
+    ExerciseFormStore.on("change", () => this.setState({exerciseForm: ExerciseFormStore.getAll()}))
   }
 
   displayExercises() {
@@ -43,7 +48,17 @@ class Index extends React.Component {
   }
 
   render() {
-    return this.state.exercises.length === 0 ? this.noExercises() : this.displayExercises()
+    const modalId = "exerciseForm"
+    return (
+      <div className="container">
+        <FormModalButton modalId={modalId}>
+          New Exercise
+        </FormModalButton>
+
+        {this.state.exercises.length === 0 ? this.noExercises() : this.displayExercises()}
+        <FormModal id={modalId} exercise={this.state.exerciseForm} title="New Exercise" />
+      </div>
+    )
   }
 }
 
