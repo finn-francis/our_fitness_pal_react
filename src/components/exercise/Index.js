@@ -3,6 +3,7 @@ import ExerciseIndexStore from '../../stores/exercise/IndexStore'
 import ExerciseFormStore from '../../stores/exercise/FormStore'
 import FormModalButton from './FormModalButton'
 import FormModal from './FormModal'
+import {fetchExerciseIndex} from '../../utils/exercises/ExerciseAPI'
 
 class Index extends React.Component {
   constructor(props) {
@@ -15,8 +16,10 @@ class Index extends React.Component {
   }
 
   componentDidMount() {
-    ExerciseIndexStore.on("change", () => this.setState({exercises: ExerciseIndexStore.getAll()}))
     ExerciseFormStore.on("change", () => this.setState({exerciseForm: ExerciseFormStore.getAll()}))
+    ExerciseIndexStore.on("change", () => this.setState({exercises: ExerciseIndexStore.getAll()}))
+
+    fetchExerciseIndex()
   }
 
   displayExercises() {
