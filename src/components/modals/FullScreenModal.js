@@ -1,6 +1,6 @@
 import React from 'react'
 
-const FullScreenModal = (props) => {
+export const FullScreenModal = (props) => {
   return (
     <div className="modal fade right" id={props.id} tabIndex="-1" role="dialog" aria-hidden="true">
       <div className="modal-dialog-full-width modal-dialog momodel modal-fluid" role="document">
@@ -12,4 +12,18 @@ const FullScreenModal = (props) => {
   )
 }
 
-export default FullScreenModal
+export const FullScreenModalFooter = (props) => {
+  return (
+    <div className="modal-footer-full-width modal-footer text-center">
+      {props.children}
+    </div>
+  )
+}
+
+export const FullScreenModalHeader = (props) => {
+  return (
+    <div className="modal-header-full-width modal-header text-center">
+      {props.children}
+    </div>
+  )
+}
