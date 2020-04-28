@@ -11,12 +11,12 @@ const FormModal = (props) => {
 
   return (
     <FullScreenModal id={props.id}>
-      <FullScreenModalHeader>
-        <h5 className="modal-title w-100">{props.title}</h5>
-      </FullScreenModalHeader>
+      <form>
+        <FullScreenModalHeader>
+          <h5 className="modal-title w-100">{props.title}</h5>
+        </FullScreenModalHeader>
 
-      <div className="modal-body">
-        <form>
+        <div className="modal-body">
           <div className="form-group">
             <label htmlFor="name">Exercise name</label>
             <input
@@ -38,16 +38,13 @@ const FormModal = (props) => {
             value={description}
             onChange={handleChange}
           />
-          <button type="submit" className="btn submit-button custom-button mt-3">
-            Save
-          </button>
-        </form>
-      </div>
+        </div>
 
-      <FullScreenModalFooter>
-        <button type="button" className="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
-        <button type="button" className="btn btn-info btn-md">Save changes</button>
-      </FullScreenModalFooter>
+        <FullScreenModalFooter>
+          <button type="button" className="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
+          <button type="submit" className="btn btn-info btn-md">Save changes</button>
+        </FullScreenModalFooter>
+      </form>
     </FullScreenModal>
   )
 }
