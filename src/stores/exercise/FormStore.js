@@ -5,16 +5,17 @@ class FormStore extends EventEmitter {
   constructor(props) {
     super(props)
 
-    this.resetToEmpty()
+    this.clearExercise()
   }
 
-  resetToEmpty() {
+  clearExercise() {
     this.exerciseObject = {
       id: null,
       name: "",
       description: "",
       errors: {}
     }
+    this.emit("change")
   }
 
   getAll() {
@@ -32,9 +33,12 @@ class FormStore extends EventEmitter {
     switch(action.type) {
       case "updateExerciseForm":
         this.updateExerciseForm(action.exercise)
-        break;
+        break
+        case "clearFormExercise":
+          this.clearExercise()
+          break
       default:
-        break;
+        break
     }
   }
 }

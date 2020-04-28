@@ -1,6 +1,6 @@
 import React from 'react'
 import {FullScreenModal, FullScreenModalHeader, FullScreenModalFooter} from '../modals/FullScreenModal'
-import {updateExerciseForm} from '../../actions/ExerciseActions'
+import {updateExerciseForm, clearFormExercise} from '../../actions/ExerciseActions'
 
 const FormModal = (props) => {
   const {exercise: {name, description}} = props
@@ -41,7 +41,7 @@ const FormModal = (props) => {
         </div>
 
         <FullScreenModalFooter>
-          <button type="button" className="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
+          <button onClick={clearFormExercise} type="button" className="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
           <button type="submit" className="btn btn-info btn-md">Save changes</button>
         </FullScreenModalFooter>
       </form>

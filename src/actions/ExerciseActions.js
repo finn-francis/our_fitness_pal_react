@@ -13,3 +13,7 @@ export const updateExerciseForm = (exercise) => {
     exercise: exercise
   })
 }
+
+export const clearFormExercise = () => {
+  dispatcher.dispatch({type: 'clearFormExercise'})
+}
