@@ -16,6 +16,10 @@ class Index extends React.Component {
     }
   }
 
+  static defaultProps = {
+    exerciseModalId: "exerciseForm"
+  }
+
   componentDidMount() {
     ExerciseFormStore.on("change", () => this.setState({exerciseForm: ExerciseFormStore.getAll()}))
     ExerciseIndexStore.on("change", () => this.setState({exercises: ExerciseIndexStore.getAll()}))
@@ -23,13 +27,14 @@ class Index extends React.Component {
     fetchExerciseIndex()
   }
 
-  displayExercises() {
+  renderExercises() {
     const {exercises} = this.state
+    const {exerciseModalId} = this.props
 
     return (
       <>
         <ul id="exercise-list" className="list-group">
-          {exercises.map(exercise => <IndexListItem key={exercise.id} exercise={exercise} />)}
+          {exercises.map(exercise => <IndexListItem key={exercise.id} exercise={exercise} modalId={exerciseModalId} />)}
         </ul>
       </>
     )
@@ -44,15 +49,16 @@ class Index extends React.Component {
   }
 
   render() {
-    const modalId = "exerciseForm"
+    const {exerciseModalId} = this.props
+
     return (
       <div className="container">
-        <FormModalButton modalId={modalId}>
+        <FormModalButton modalId={exerciseModalId}>
           New Exercise
         </FormModalButton>
 
-        {this.state.exercises.length === 0 ? this.noExercises() : this.displayExercises()}
-        <FormModal id={modalId} exercise={this.state.exerciseForm} title="New Exercise" />
+        {this.state.exercises.length === 0 ? this.noExercises() : this.renderExercises()}
+        <FormModal id={exerciseModalId} exercise={this.state.exerciseForm} title="Exercise" />
       </div>
     )
   }

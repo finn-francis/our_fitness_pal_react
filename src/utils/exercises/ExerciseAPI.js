@@ -12,7 +12,7 @@ export const fetchExerciseIndex = () => {
     .catch(error => console.log(error.message))
 }
 
-export const createExercise = (exercise) => {
+const sendExerciseRequest = (exercise, url, method) => {
   const body = {
     exercise: {
       name: exercise.name,
@@ -20,8 +20,8 @@ export const createExercise = (exercise) => {
     }
   }
 
-  fetch(`${BASE_URL}/exercises`, {
-    method: 'POST',
+  fetch(url, {
+    method: method,
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify(body)
   })
@@ -39,4 +39,12 @@ export const createExercise = (exercise) => {
       }
     })
     .catch(error => console.log(error.message))
+}
+
+export const createExercise = (exercise) => {
+  sendExerciseRequest(exercise, `${BASE_URL}/exercises`, 'POST')
+}
+
+export const updateExercise = (exercise) => {
+  sendExerciseRequest(exercise, `${BASE_URL}/exercises/${exercise.id}`, 'PUT')
 }

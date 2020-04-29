@@ -14,6 +14,7 @@ class FormStore extends EventEmitter {
       name: "",
       description: "",
       errors: {},
+      formAction: 'new',
       responseSuccess: null
     }
     this.emit("change")

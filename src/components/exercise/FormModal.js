@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {FullScreenModal, FullScreenModalHeader, FullScreenModalFooter} from '../modals/FullScreenModal'
 import {updateExerciseForm, clearFormExercise} from '../../actions/ExerciseActions'
-import {createExercise} from '../../utils/exercises/ExerciseAPI'
+import {createExercise, updateExercise} from '../../utils/exercises/ExerciseAPI'
 import Input from '../forms/Input'
 
 const FormModal = (props) => {
@@ -20,14 +20,30 @@ const FormModal = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    createExercise(props.exercise)
+    switch (props.exercise.formAction) {
+      case "new":
+        createExercise(props.exercise)
+        break
+      case "edit":
+        updateExercise(props.exercise)
+        break
+      default:
+        break
+    }
+  }
+
+  const modalTitle = () => {
+    const {exercise: {formAction}, title} = props
+    let action = formAction[0].toUpperCase() + formAction.slice(1)
+
+    return `${action} ${title}`
   }
 
   return (
     <FullScreenModal id={props.id}>
       <form onSubmit={handleSubmit}>
         <FullScreenModalHeader>
-          <h5 className="modal-title w-100">{props.title}</h5>
+          <h5 className="modal-title w-100">{modalTitle()}</h5>
         </FullScreenModalHeader>
 
         <div className="modal-body">
