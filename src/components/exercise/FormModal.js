@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import {FullScreenModal, FullScreenModalHeader, FullScreenModalFooter} from '../modals/FullScreenModal'
 import {updateExerciseForm, clearFormExercise} from '../../actions/ExerciseActions'
 import {createExercise} from '../../utils/exercises/ExerciseAPI'
+import Input from '../forms/Input'
 
 const FormModal = (props) => {
   const {exercise: {name, description}} = props
@@ -30,27 +31,29 @@ const FormModal = (props) => {
 
         <div className="modal-body">
           <div className="form-group">
-            <label htmlFor="name">Exercise name</label>
-            <input
-              type="text"
-              name="name"
-              id="exerciseName"
+            <Input label="Name" labelHtmlFor="name" errors={props.exercise.errors.name}>
+              <input
+                type="text"
+                name="name"
+                id="exerciseName"
+                className="form-control"
+                required
+                value={name}
+                onChange={handleChange}
+                />
+            </Input>
+          </div>
+          <Input label="Description" labelHtmlFor="description" errors={props.exercise.errors.description}>
+            <textarea
               className="form-control"
+              id="exerciseDescription"
+              name="description"
+              rows="5"
               required
-              value={name}
+              value={description}
               onChange={handleChange}
             />
-          </div>
-          <label htmlFor="description">Description</label>
-          <textarea
-            className="form-control"
-            id="exerciseDescription"
-            name="description"
-            rows="5"
-            required
-            value={description}
-            onChange={handleChange}
-          />
+          </Input>
         </div>
 
         <FullScreenModalFooter>
