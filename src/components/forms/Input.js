@@ -2,10 +2,8 @@ import React from 'react'
 import Label from './Label'
 
 const Input = (props) => {
-  const errors = props.errors || []
-
   const renderInput = () => {
-    if (errors.length > 0) {
+    if (props.errors.length > 0) {
       return (
         <div className="has-error">
           {props.children}
@@ -18,10 +16,12 @@ const Input = (props) => {
 
   return (
     <>
-      {props.label ? <Label htmlFor={props.labelHtmlFor} label={props.label} errors={errors} /> : null}
+      {props.label ? <Label htmlFor={props.labelHtmlFor} label={props.label} errors={props.errors} /> : null}
       {renderInput()}
     </>
   )
 }
+
+Input.defaultProps = { errors: [] }
 
 export default Input
