@@ -15,5 +15,7 @@ export const updateExerciseForm = (exercise) => {
 }
 
 export const clearFormExercise = () => {
-  dispatcher.dispatch({type: 'clearFormExercise'})
+  setTimeout(() => {
+    dispatcher.dispatch({type: 'clearFormExercise'})
+  }, 1)
 }
