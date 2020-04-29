@@ -1,6 +1,15 @@
 import React from 'react'
 import '../assets/stylesheets/App.css'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from 'react-router-dom'
+
 import AuthStore from '../stores/AuthStore'
+import Home from './Home'
+import ExerciseIndex from './exercise/Index'
+
 
 class App extends React.Component {
   constructor(props) {
@@ -17,11 +26,12 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          Our Fitness Pal
-        </header>
-      </div>
+      <Router>
+        <Switch>
+          <Route path="/exercises" render={(props) => <ExerciseIndex {...props} {...this.state} />} />
+          <Route path="/" render={(props) => <Home {...props} {...this.state} />} />
+        </Switch>
+      </Router>
     )
   }
 }
