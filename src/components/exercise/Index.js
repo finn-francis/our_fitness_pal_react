@@ -1,6 +1,7 @@
 import React from 'react'
 import ExerciseIndexStore from '../../stores/exercise/IndexStore'
 import ExerciseFormStore from '../../stores/exercise/FormStore'
+import IndexListItem from './IndexListItem'
 import FormModalButton from './FormModalButton'
 import FormModal from './FormModal'
 import {fetchExerciseIndex} from '../../utils/exercises/ExerciseAPI'
@@ -28,15 +29,7 @@ class Index extends React.Component {
     return (
       <>
         <ul id="exercise-list" className="list-group">
-          {
-            exercises.map(exercise => {
-              return (
-                <li key={exercise.id} className="list-group-item exercise-list-item">
-                  {exercise.name}
-                </li>
-              )
-            })
-          }
+          {exercises.map(exercise => <IndexListItem key={exercise.id} exercise={exercise} />)}
         </ul>
       </>
     )
