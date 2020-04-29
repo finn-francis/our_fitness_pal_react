@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 export const FullScreenModal = (props) => {
   return (
@@ -11,6 +12,7 @@ export const FullScreenModal = (props) => {
     </div>
   )
 }
+FullScreenModal.propTypes = {id: PropTypes.string.isRequired}
 
 export const FullScreenModalFooter = (props) => {
   return (

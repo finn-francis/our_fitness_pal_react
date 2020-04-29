@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react'
+import PropTypes from 'prop-types'
 import {FullScreenModal, FullScreenModalHeader, FullScreenModalFooter} from '../modals/FullScreenModal'
 import {updateExerciseForm, clearFormExercise} from '../../actions/ExerciseActions'
 import {createExercise} from '../../utils/exercises/ExerciseAPI'
@@ -64,5 +65,6 @@ const FormModal = (props) => {
     </FullScreenModal>
   )
 }
+FormModal.propTypes = {exercise: PropTypes.object.isRequired}
 
 export default FormModal

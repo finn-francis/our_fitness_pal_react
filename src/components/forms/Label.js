@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const Label = (props) => {
   const inputErrors = () => {
@@ -20,7 +21,7 @@ const Label = (props) => {
     </label>
   )
 }
-
 Label.defaultProps = {errors: []}
+Label.propTypes = {label: PropTypes.string.isRequired}
 
 export default Label

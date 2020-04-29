@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const FormModalButton = (props) => {
   return (
@@ -9,5 +10,6 @@ const FormModalButton = (props) => {
     </>
   )
 }
+FormModalButton.propTypes = {modalId: PropTypes.string.isRequired}
 
 export default FormModalButton
