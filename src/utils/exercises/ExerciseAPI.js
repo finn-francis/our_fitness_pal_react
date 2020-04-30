@@ -48,3 +48,23 @@ export const createExercise = (exercise) => {
 export const updateExercise = (exercise) => {
   sendExerciseRequest(exercise, `${BASE_URL}/exercises/${exercise.id}`, 'PUT')
 }
+
+export const deleteExercise = (exerciseId) => {
+  fetch(`${BASE_URL}/exercises/${exerciseId}`, {
+    method: "DELETE",
+    headers: {"Content-Type": "application/json"}
+  })
+    .then(response => {
+      if (response.ok)
+        return response.json()
+      throw new Error("Network response not ok.")
+    })
+    .then(response => {
+      if (response.errors) {
+        // TODO (Finn): Add toast notifications
+        console.log(response.errorss)
+      } else {
+        setExercises(response.exercises)
+      }
+    })
+}
