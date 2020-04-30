@@ -24,7 +24,7 @@ const ConfirmationModal = (props) => {
           </div>
           {renderBody()}
           <div className="modal-footer">
-            <button type="button" className="btn btn-secondary cancel-button" data-dismiss="modal">{props.cancelText}</button>
+            <button type="button" className="btn btn-secondary cancel-button" data-dismiss="modal" onClick={props.handleCancel}>{props.cancelText}</button>
             <button type="button" className="btn btn-info confirm-button" data-dismiss="modal" onClick={props.handleConfirm}>{props.confirmText}</button>
           </div>
         </div>
