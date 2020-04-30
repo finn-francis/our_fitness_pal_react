@@ -1,10 +1,10 @@
-import { configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { configure } from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
 
-configure({ adapter: new Adapter() });
+configure({ adapter: new Adapter() })
 
-import React from 'react';
-import { mount } from 'enzyme';
+import React from 'react'
+import { mount } from 'enzyme'
 
 import FormModal from '../FormModal'
 
@@ -15,7 +15,7 @@ describe('FormModal', () => {
 
   describe("an exercise is passed in", () => {
     beforeEach(() => {
-      exercise = {id: 1, name: 'Squat', description: 'Go low!'}
+      exercise = {id: 1, name: 'Squat', description: 'Go low!', errors: [], formAction: 'new'}
       container = mount(<FormModal id={modalId} exercise={exercise} />)
     })
     afterEach(() => { container.unmount() })
@@ -31,8 +31,7 @@ describe('FormModal', () => {
 
   describe("no exercise is passed in", () => {
     beforeEach(() => {
-      exercise = {id: null, name: '', description: ''}
-
+      exercise = {id: null, name: '', description: '', errors: [], formAction: 'new'}
       container = mount(<FormModal id={modalId} exercise={exercise} />)
     })
     afterEach(() => { container.unmount() })

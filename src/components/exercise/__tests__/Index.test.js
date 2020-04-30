@@ -4,7 +4,7 @@ import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
 
 import React from 'react';
-import { shallow, } from 'enzyme';
+import { mount } from 'enzyme';
 
 import Index from '../Index'
 
@@ -12,7 +12,7 @@ describe('Index', () => {
   describe("render", function() {
     let container
 
-    beforeEach(() => { container = shallow(<Index/>) })
+    beforeEach(() => { container = mount(<Index/>) })
     afterEach(() => { container.unmount() })
 
     it("shows there are no exercises if there is no data", () => {

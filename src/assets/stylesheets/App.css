@@ -50,3 +50,12 @@
   height: auto !important;
   min-height: 100% !important;
 }
+
+form div.has-error input,
+form div.has-error textarea {
+  /*
+    TODO (Finn): install scss
+    #dc3545 is bootstrap danger
+  */
+  border-color: #dc3545;
+}
