@@ -17,7 +17,6 @@ class FormStore extends EventEmitter {
       formAction: 'new',
       responseSuccess: null
     }
-    this.emit("change")
   }
 
   getAll() {
@@ -38,6 +37,7 @@ class FormStore extends EventEmitter {
         break
         case "clearFormExercise":
           this.clearExercise()
+          this.emit("change")
           break
       default:
         break
