@@ -5,11 +5,7 @@ class SelectedStore extends EventEmitter {
   constructor(props) {
     super(props)
 
-    this.selectedExercise = {
-      id: null,
-      name: '',
-      description: ''
-    }
+    this.clearSelectedExercise()
   }
 
   get() {
@@ -23,10 +19,22 @@ class SelectedStore extends EventEmitter {
     this.emit("change")
   }
 
+  clearSelectedExercise() {
+    this.selectedExercise = {
+      id: null,
+      name: '',
+      description: ''
+    }
+  }
+
   handleActions(action) {
     switch (action.type) {
       case 'updateSelectedExercise':
         this.updateSelectedExercise(action.exercise)
+        break
+      case 'clearSelectedExercise':
+        this.clearSelectedExercise()
+        this.emit("change")
         break
       default:
         break

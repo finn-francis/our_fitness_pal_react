@@ -26,3 +26,7 @@ export const updateSelectedExercise = (exercise) => {
     exercise: exercise
   })
 }
+
+export const clearSelectedExercise = () => {
+  dispatcher.dispatch({type: "clearSelectedExercise"})
+}
