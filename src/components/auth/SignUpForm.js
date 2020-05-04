@@ -1,7 +1,7 @@
 import React from 'react'
 import Input from '../forms/Input'
 import AuthFormStore from '../../stores/auth/FormStore'
-import {updateSignUpForm, clearSignUpForm} from '../../actions/AuthActions'
+import {updateSignUpForm} from '../../actions/AuthActions'
 import {createUser} from "../../utils/auths/AuthAPI"
 import {Redirect} from 'react-router-dom'
 import Cookies from 'js-cookie'
@@ -11,12 +11,12 @@ class SignUpForm extends React.Component {
     super(props)
 
     this.state = {
-      userForm: AuthFormStore.getAll(),
+      user: AuthFormStore.getAll(),
     }
   }
 
   componentDidMount() {
-    AuthFormStore.on("change", () => this.setState({userForm: AuthFormStore.getAll()}))
+    AuthFormStore.on("change", () => this.setState({user: AuthFormStore.getAll()}))
   }
 
   handleChange = (event) => {
@@ -25,7 +25,7 @@ class SignUpForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    createUser(this.state.userForm)
+    createUser(this.state.user)
   }
 
   render() {
@@ -43,7 +43,7 @@ class SignUpForm extends React.Component {
                 id="userEmail"
                 className="form-control"
                 required
-                value={this.state.userForm.email}
+                value={this.state.user.email}
                 onChange={this.handleChange}
                 />
             </Input>
@@ -55,7 +55,7 @@ class SignUpForm extends React.Component {
               id="userPassword"
               className="form-control"
               required
-              value={this.state.userForm.password}
+              value={this.state.user.password}
               onChange={this.handleChange}
             />
           </Input>
@@ -66,7 +66,7 @@ class SignUpForm extends React.Component {
               id="userPasswordConfirmation"
               className="form-control"
               required
-              value={this.state.userForm.passwordConfirmation}
+              value={this.state.user.passwordConfirmation}
               onChange={this.handleChange}
             />
           </Input>
