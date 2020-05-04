@@ -1,5 +1,6 @@
 import { EventEmitter } from "events"
 import dispatcher from '../dispatcher/AppDispatcher'
+import Cookies from 'js-cookie'
 
 class AuthStore extends EventEmitter {
   constructor() {
@@ -23,8 +24,9 @@ class AuthStore extends EventEmitter {
     return this.auth
   }
 
-  setCurrentUser(user) {
-    this.auth.currentUser = user
+  setCurrentUser(response) {
+    Cookies.set('token', response.jwt)
+    Cookies.set('user', response.user)
     this.emit("change")
   }
 

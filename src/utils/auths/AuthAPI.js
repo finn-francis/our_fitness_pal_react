@@ -1,6 +1,5 @@
 import {BASE_URL} from '../../constants/AppConstants'
 import {updateSignUpForm, setCurrentUser} from '../../actions/AuthActions'
-import Cookies from 'js-cookie'
 
 const sendUserRequest = (user, url, method) => {
   const body = {
@@ -25,8 +24,7 @@ const sendUserRequest = (user, url, method) => {
       if (response.errors) {
         updateSignUpForm({errors: response.errors})
       } else {
-        Cookies.set('token', response.jwt)
-        setCurrentUser(response.user)
+        setCurrentUser(response)
       }
     })
     .catch(error => console.log(error.message))
