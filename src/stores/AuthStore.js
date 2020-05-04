@@ -6,8 +6,8 @@ class AuthStore extends EventEmitter {
     super()
     this.auth = {
       currentUser: {
-        id: 1,
-        email: "finnfrancis@gmail.com"
+        id: '',
+        email: ''
       }
     }
   }
@@ -25,12 +25,6 @@ class AuthStore extends EventEmitter {
 
   setCurrentUser(user) {
     this.auth.currentUser = user
-    // This means that on change someone else can get this event like this:
-    // componentWillMount() {
-    //   AuthStore.on("change", () => {
-    //     this.setState(AuthStore.getAll())
-    //   })
-    // }
     this.emit("change")
   }
 
