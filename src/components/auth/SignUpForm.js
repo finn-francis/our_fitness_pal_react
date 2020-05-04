@@ -3,6 +3,8 @@ import Input from '../forms/Input'
 import AuthFormStore from '../../stores/auth/FormStore'
 import {updateSignUpForm, clearSignUpForm} from '../../actions/AuthActions'
 import {createUser} from "../../utils/auths/AuthAPI"
+import {Redirect} from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 class SignUpForm extends React.Component {
   constructor(props) {
@@ -27,6 +29,9 @@ class SignUpForm extends React.Component {
   }
 
   render() {
+    if (Cookies.get('token')) {
+      return <Redirect to='/' />
+    }
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="container">
