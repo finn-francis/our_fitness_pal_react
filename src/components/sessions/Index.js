@@ -1,6 +1,7 @@
 import React from 'react'
 import IndexStore from '../../stores/sessions/IndexStore'
 import IndexListItem from './IndexListItem'
+import {fetchSessions} from '../../utils/sessions/SessionAPI'
 
 class Index extends React.Component {
   constructor(props) {
@@ -13,6 +14,8 @@ class Index extends React.Component {
 
   componentDidMount() {
     IndexStore.on('change', () => this.setState({sessions: IndexStore.getAll()}))
+
+    fetchSessions()
   }
 
   renderSessions() {
