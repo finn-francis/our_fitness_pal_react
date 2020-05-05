@@ -63,5 +63,16 @@ describe('FormStore', () => {
       FormStore.handleActions({type: "clearSessionForm"})
       expect(FormStore.get()).toEqual(emptySession)
     })
+
+    describe('with updateSessionForm as an argument', () => {
+      it('should update attributes on the session object', () => {
+        let values = ["a", "b", "c", "d"]
+        values.forEach(value => {
+          FormStore.handleActions({type: 'updateSessionForm', session: {name: value, description: value}})
+          expect(FormStore.get().name).toEqual(value)
+          expect(FormStore.get().description).toEqual(value)
+        })
+      })
+    })
   })
 })

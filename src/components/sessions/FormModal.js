@@ -2,11 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {FullScreenModal, FullScreenModalHeader, FullScreenModalFooter} from '../modals/FullScreenModal'
 import {updateSessionForm, clearSessionForm} from '../../actions/SessionActions'
+import {createSession} from '../../utils/sessions/SessionAPI'
 import Input from '../forms/Input'
 
 const FormModal = (props) => {
   const handleChange = (event) => {
     updateSessionForm({[event.target.name]: event.target.value})
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    createSession(props.session)
   }
 
   const modalTitle = () => {
@@ -18,7 +24,7 @@ const FormModal = (props) => {
 
   return (
     <FullScreenModal id={props.id}>
-      <form>
+      <form onSubmit={handleSubmit}>
         <FullScreenModalHeader>
           <h5 className="modal-title w-100">{modalTitle()}</h5>
         </FullScreenModalHeader>

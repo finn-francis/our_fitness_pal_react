@@ -38,6 +38,9 @@ class FormStore extends EventEmitter {
         this.clearSession()
         this.emit("change")
         break
+      case "updateSessionForm":
+        this.updateSessionForm(action.session)
+        break
       default:
         break
     }
