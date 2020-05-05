@@ -6,3 +6,14 @@ export const setSessions = (sessions) => {
     sessions: sessions
   })
 }
+
+export const clearSessionForm = () => {
+  dispatcher.dispatch({type: 'clearSessionForm'})
+}
+
+export const updateSessionForm = (session) => {
+  dispatcher.dispatch({
+    type: 'updateSessionForm',
+    session: session
+  })
+}
