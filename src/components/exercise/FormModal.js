@@ -81,6 +81,6 @@ const FormModal = (props) => {
     </FullScreenModal>
   )
 }
-FormModal.propTypes = {exercise: PropTypes.object.isRequired}
+FormModal.propTypes = {exercise: PropTypes.object.isRequired, title: PropTypes.string.isRequired}
 
 export default FormModal

@@ -16,7 +16,7 @@ describe('FormModal', () => {
   describe("an exercise is passed in", () => {
     beforeEach(() => {
       exercise = {id: 1, name: 'Squat', description: 'Go low!', errors: [], formAction: 'new'}
-      container = mount(<FormModal id={modalId} exercise={exercise} />)
+      container = mount(<FormModal id={modalId} exercise={exercise} title="Exercise" />)
     })
     afterEach(() => { container.unmount() })
 
@@ -32,7 +32,7 @@ describe('FormModal', () => {
   describe("no exercise is passed in", () => {
     beforeEach(() => {
       exercise = {id: null, name: '', description: '', errors: [], formAction: 'new'}
-      container = mount(<FormModal id={modalId} exercise={exercise} />)
+      container = mount(<FormModal id={modalId} exercise={exercise} title="Exercise" />)
     })
     afterEach(() => { container.unmount() })
 
