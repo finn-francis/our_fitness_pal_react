@@ -3,7 +3,7 @@ import ExerciseIndexStore from '../../stores/exercise/IndexStore'
 import ExerciseFormStore from '../../stores/exercise/FormStore'
 import SelectedExerciseStore from '../../stores/exercise/SelectedStore'
 import IndexListItem from './IndexListItem'
-import FormModalButton from './FormModalButton'
+import FormModalButton from '../modals/FormModalButton'
 import FormModal from './FormModal'
 import ConfirmationModal from '../modals/ConfirmationModal'
 import {fetchExerciseIndex, deleteExercise} from '../../utils/exercises/ExerciseAPI'
@@ -66,7 +66,7 @@ class Index extends React.Component {
 
   createExerciseButton(exerciseModalId) {
     return(
-      <FormModalButton modalId={exerciseModalId}>
+      <FormModalButton id='exercise-modal-button' modalId={exerciseModalId}>
         New Exercise
       </FormModalButton>
     )
