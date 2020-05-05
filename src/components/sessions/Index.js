@@ -2,18 +2,23 @@ import React from 'react'
 import IndexStore from '../../stores/sessions/IndexStore'
 import IndexListItem from './IndexListItem'
 import {fetchSessions} from '../../utils/sessions/SessionAPI'
+import FormModal from './FormModal'
+import FormStore from '../../stores/sessions/FormStore'
+import FormModalButton from '../modals/FormModalButton'
 
 class Index extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      sessions: IndexStore.getAll()
+      sessions: IndexStore.getAll(),
+      sessionForm: FormStore.get()
     }
   }
 
   componentDidMount() {
     IndexStore.on('change', () => this.setState({sessions: IndexStore.getAll()}))
+    FormStore.on('change', () => this.setState({sessionForm: FormStore.get()}))
 
     fetchSessions()
   }
@@ -39,9 +44,15 @@ class Index extends React.Component {
   }
 
   render() {
+    const formModalId = 'session-form'
+
     return (
       <div className="container">
+        <FormModalButton id='session-modal-button' modalId={formModalId}>
+          New Exercise
+        </FormModalButton>
         {this.state.sessions.length < 1 ? this.noSessions() : this.renderSessions()}
+        <FormModal session={this.state.sessionForm} id={formModalId} title='Session' />
       </div>
     )
   }
