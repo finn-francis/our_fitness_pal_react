@@ -13,3 +13,10 @@ export const updateSignUpForm = (user) => {
     user: user
   })
 }
+
+export const updateSignInForm = (user) => {
+  dispatcher.dispatch({
+    type: 'updateSignInForm',
+    user: user
+  })
+}

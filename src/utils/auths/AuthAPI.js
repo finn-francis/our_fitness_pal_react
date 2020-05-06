@@ -1,15 +1,7 @@
 import {BASE_URL} from '../../constants/AppConstants'
 import {updateSignUpForm, setCurrentUser} from '../../actions/AuthActions'
 
-const sendUserRequest = (user, url, method) => {
-  const body = {
-    user: {
-      email: user.email,
-      password: user.password,
-      password_confirmation: user.passwordConfirmation
-    }
-  }
-
+const sendUserRequest = (url, method, body) => {
   fetch(url, {
     method: method,
     headers: {"Content-Type": "application/json"},
@@ -31,5 +23,22 @@ const sendUserRequest = (user, url, method) => {
 }
 
 export const createUser = (user) => {
-  sendUserRequest(user, `${BASE_URL}/users`, 'POST')
+  const body = {
+    user: {
+      email: user.email,
+      password: user.password,
+      password_confirmation: user.passwordConfirmation
+    }
+  }
+  sendUserRequest(`${BASE_URL}/users`, 'POST', body)
+}
+
+export const signInUser = (user) => {
+  const body = {
+    user: {
+      email: user.email,
+      password: user.password,
+    }
+  }
+  sendUserRequest(`${BASE_URL}/sign_in`, 'POST', body)
 }

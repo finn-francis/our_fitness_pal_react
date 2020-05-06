@@ -35,6 +35,9 @@ class FormStore extends EventEmitter {
       case "updateSignUpForm":
         this.updateSignUpForm(action.user)
         break
+      case "updateSignInForm":
+        this.updateSignUpForm(action.user)
+        break
       case "clearFormUser":
         this.clearUser()
         this.emit("change")
