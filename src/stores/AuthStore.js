@@ -1,13 +1,14 @@
 import { EventEmitter } from "events"
 import dispatcher from '../dispatcher/AppDispatcher'
+import Cookies from 'js-cookie'
 
 class AuthStore extends EventEmitter {
   constructor() {
     super()
     this.auth = {
       currentUser: {
-        id: 1,
-        email: "finnfrancis@gmail.com"
+        id: '',
+        email: ''
       }
     }
   }
@@ -20,17 +21,18 @@ class AuthStore extends EventEmitter {
   // }
 
   getAll() {
-    return this.auth
+    return Cookies.get('user')
   }
 
-  setCurrentUser(user) {
-    this.auth.currentUser = user
-    // This means that on change someone else can get this event like this:
-    // componentWillMount() {
-    //   AuthStore.on("change", () => {
-    //     this.setState(AuthStore.getAll())
-    //   })
-    // }
+  setCurrentUser(response) {
+    Cookies.set('token', response.jwt)
+    Cookies.set('user', response.user)
+    this.emit("change")
+  }
+
+  clearCurrentUser() {
+    Cookies.remove('token')
+    Cookies.remove('user')
     this.emit("change")
   }
 
@@ -38,6 +40,9 @@ class AuthStore extends EventEmitter {
     switch(action.type) {
       case "setCurrentUser":
         this.setCurrentUser(action.user)
+        break;
+      case "clearCurrentUser":
+        this.clearCurrentUser(action.user)
         break;
       default:
         break;
