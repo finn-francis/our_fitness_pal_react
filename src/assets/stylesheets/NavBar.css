@@ -1,0 +1,15 @@
+.nav-item:first-of-type {
+  border-top: 1px solid grey;
+}
+
+.nav-item {
+  border-bottom: 1px solid grey;
+}
+
+.nav-link-item {
+  display: inline-block;
+  width: 100%;
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+}
