@@ -3,16 +3,12 @@ import '../assets/stylesheets/App.css'
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link,
+  Route
 } from 'react-router-dom'
 
 import AuthStore from '../stores/AuthStore'
 import Home from './Home'
 import ExerciseIndex from './exercise/Index'
-import SignUpForm from './auth/SignUpForm'
-import SignInForm from './auth/SignInForm'
-import {clearCurrentUser} from '../actions/AuthActions'
 
 
 class App extends React.Component {
@@ -28,23 +24,10 @@ class App extends React.Component {
     AuthStore.on("change", () => this.setState({auth: AuthStore.getAll()}))
   }
 
-  logout() {
-    clearCurrentUser()
-  }
-
   render() {
     return (
       <Router>
-        <nav className="navbar navbar-dark bg-light">
-          <Link to="/sign_up">Sign-Up</Link>
-          <Link to="/sign_in">Sign-In</Link>
-          <button onClick={this.logout}>
-            Logout
-          </button>
-        </nav>
         <Switch>
-          <Route path="/sign_up" render={(props) => <SignUpForm {...props} {...this.state} />} />
-          <Route path="/sign_in" render={(props) => <SignInForm {...props} {...this.state} />} />
           <Route path="/exercises" render={(props) => <ExerciseIndex {...props} {...this.state} />} />
           <Route path="/" render={(props) => <Home {...props} {...this.state} />} />
         </Switch>
