@@ -30,10 +30,19 @@ class AuthStore extends EventEmitter {
     this.emit("change")
   }
 
+  clearCurrentUser() {
+    Cookies.remove('token')
+    Cookies.remove('user')
+    this.emit("change")
+  }
+
   handleActions(action) {
     switch(action.type) {
       case "setCurrentUser":
         this.setCurrentUser(action.user)
+        break;
+      case "clearCurrentUser":
+        this.clearCurrentUser(action.user)
         break;
       default:
         break;
