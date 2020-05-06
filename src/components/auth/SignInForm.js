@@ -28,6 +28,10 @@ class SignInForm extends React.Component {
     signInUser(this.state.user)
   }
 
+  componentWillUnmount() {
+    AuthFormStore.removeAllListeners()
+  }
+
   render() {
     if (Cookies.get('token')) {
       return <Redirect to='/' />
