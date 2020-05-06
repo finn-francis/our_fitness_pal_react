@@ -9,6 +9,7 @@ import {
 
 import AuthStore from '../stores/AuthStore'
 import Home from './Home'
+import NavBar from './NavBar'
 import ExerciseIndex from './exercise/Index'
 import SignUpForm from './auth/SignUpForm'
 import SignInForm from './auth/SignInForm'
@@ -35,13 +36,7 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <nav className="navbar navbar-dark bg-light">
-          <Link to="/sign_up">Sign-Up</Link>
-          <Link to="/sign_in">Sign-In</Link>
-          <button onClick={this.logout}>
-            Logout
-          </button>
-        </nav>
+        <NavBar {...this.state}/>
         <Switch>
           <Route path="/sign_up" render={(props) => <SignUpForm {...props} {...this.state} />} />
           <Route path="/sign_in" render={(props) => <SignInForm {...props} {...this.state} />} />
