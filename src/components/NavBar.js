@@ -5,16 +5,10 @@ import '../assets/stylesheets/NavBar.css'
 import {clearCurrentUser} from '../actions/AuthActions'
 
 
-class NavBar extends React.Component {
-  constructor(props) {
-    super(props)
-  }
+const NavBar = (props) => {
+  const {auth} = props
 
-  logout() {
-    clearCurrentUser()
-  }
-
-  noUser() {
+  const noUser = () => {
     return (
       <>
         <Link id="sign-up-link" to="/sign_up">Sign-Up</Link>
@@ -23,18 +17,18 @@ class NavBar extends React.Component {
     )
   }
 
-  userSignedIn() {
+  const userSignedIn = () => {
     return (
       <>
-        <h6>{this.props.auth.email}</h6>
-        <button className={"btn btn-sm btn-outline-secondary"} id={"sign-out-button"} onClick={this.logout}>
+        <h6>{auth.email}</h6>
+        <button className="btn btn-sm btn-outline-secondary" id="sign-out-button" onClick={clearCurrentUser}>
           Sign Out
         </button>
       </>
     )
   }
 
-  navBarItems() {
+  const navBarItems = () => {
     const navBarItems = {
       home: {text: "Home", route: "/"},
       exercises: {text: "Exercises", route: "/exercises"},
@@ -56,23 +50,21 @@ class NavBar extends React.Component {
     )
   }
 
-  render() {
-    return (
-      <div className="pos-f-t">
-        <nav className="navbar navbar-light bg-light">
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          {this.props.auth ? this.userSignedIn() : this.noUser()}
-        </nav>
-        <div className="collapse" id="navbarNavDropdown">
-          <div className="bg-light pt-2">
-            {this.navBarItems()}
-          </div>
+  return (
+    <div className="pos-f-t">
+      <nav className="navbar navbar-light bg-light">
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        {auth ? userSignedIn() : noUser()}
+      </nav>
+      <div className="collapse" id="navbarNavDropdown">
+        <div className="bg-light pt-2">
+          {navBarItems()}
         </div>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default NavBar;
