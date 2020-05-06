@@ -21,7 +21,7 @@ class AuthStore extends EventEmitter {
   // }
 
   getAll() {
-    return Cookies.get('user')
+    return Cookies.getJSON('user')
   }
 
   setCurrentUser(response) {
