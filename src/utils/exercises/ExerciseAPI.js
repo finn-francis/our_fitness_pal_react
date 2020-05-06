@@ -1,5 +1,6 @@
 import {BASE_URL} from '../../constants/AppConstants'
 import {setExercises, updateExerciseForm} from '../../actions/ExerciseActions'
+import {authorisedHeaders} from '../authorised_request.js'
 
 export const fetchExerciseIndex = () => {
   fetch(`${BASE_URL}/exercises`)
@@ -22,7 +23,7 @@ const sendExerciseRequest = (exercise, url, method) => {
 
   fetch(url, {
     method: method,
-    headers: {"Content-Type": "application/json"},
+    headers: authorisedHeaders(),
     body: JSON.stringify(body)
   })
     .then(response => {
