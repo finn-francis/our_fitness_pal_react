@@ -1,11 +1,12 @@
 import {BASE_URL} from '../../constants/AppConstants'
 import {updateSignUpForm, setCurrentUser} from '../../actions/AuthActions'
 import { toast } from 'react-toastify';
+import {defaultHeaders} from '../authorised_request.js'
 
 const sendUserRequest = (url, method, body) => {
   fetch(url, {
     method: method,
-    headers: {"Content-Type": "application/json"},
+    headers: defaultHeaders(),
     body: JSON.stringify(body)
   })
     .then(response => {
