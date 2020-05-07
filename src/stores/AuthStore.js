@@ -1,6 +1,7 @@
 import { EventEmitter } from "events"
 import dispatcher from '../dispatcher/AppDispatcher'
 import Cookies from 'js-cookie'
+import { toast } from 'react-toastify';
 
 class AuthStore extends EventEmitter {
   constructor() {
@@ -33,6 +34,9 @@ class AuthStore extends EventEmitter {
   clearCurrentUser() {
     Cookies.remove('token')
     Cookies.remove('user')
+    toast.success("Signed out succesfully", {
+      position: toast.POSITION.BOTTOM_RIGHT
+    });
     this.emit("change")
   }
 

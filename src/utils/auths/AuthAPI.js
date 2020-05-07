@@ -1,5 +1,6 @@
 import {BASE_URL} from '../../constants/AppConstants'
 import {updateSignUpForm, setCurrentUser} from '../../actions/AuthActions'
+import { toast } from 'react-toastify';
 
 const sendUserRequest = (url, method, body) => {
   fetch(url, {
@@ -17,6 +18,9 @@ const sendUserRequest = (url, method, body) => {
         updateSignUpForm({errors: response.errors})
       } else {
         setCurrentUser(response)
+        toast.success(response.message, {
+          position: toast.POSITION.BOTTOM_RIGHT
+        });
       }
     })
     .catch(error => console.log(error.message))
