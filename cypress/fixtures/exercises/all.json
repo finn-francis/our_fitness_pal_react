@@ -1,0 +1,5 @@
+[
+  {"id": 1, "name": "Squat", "description": "Go Low!"},
+  {"id": 2, "name": "Bench press", "description": "Push it up!"},
+  {"id": 3, "name": "Deadlift", "description": "Pull it higher!"}
+]
