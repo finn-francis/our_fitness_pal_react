@@ -17,13 +17,21 @@ class IndexStore extends EventEmitter {
     this.emit("change")
   }
 
+  appendExercise(exercise) {
+    this.exercises.push(exercise)
+    this.emit("change")
+  }
+
   handleActions(action) {
     switch(action.type) {
       case "setExercises":
         this.setExercises(action.exercises)
-        break;
+        break
+      case "appendExercise":
+        this.appendExercise(action.exercise)
+        break
       default:
-        break;
+        break
     }
   }
 }
