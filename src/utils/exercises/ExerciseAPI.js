@@ -1,15 +1,15 @@
 import {BASE_URL} from '../../constants/AppConstants'
 import {setExercises, updateExerciseForm} from '../../actions/ExerciseActions'
 import {authorisedHeaders} from '../authorised_request.js'
+import axios from 'axios'
 
 export const fetchExerciseIndex = () => {
-  fetch(`${BASE_URL}/exercises`)
+  axios.get(`${BASE_URL}/exercises`)
     .then(response => {
-      if (response.ok)
-        return response.json()
+      if (response.statusText === "OK")
+        return setExercises(response.data.exercises)
       throw new Error("Network response was not ok.")
     })
-    .then(response => setExercises(response.exercises))
     .catch(error => console.log(error.message))
 }
 
