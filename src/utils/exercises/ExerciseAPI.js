@@ -53,7 +53,7 @@ export const updateExercise = (exercise) => {
 export const deleteExercise = (exerciseId) => {
   fetch(`${BASE_URL}/exercises/${exerciseId}`, {
     method: "DELETE",
-    headers: {"Content-Type": "application/json"}
+    headers: authorisedHeaders()
   })
     .then(response => {
       if (response.ok)
