@@ -1,5 +1,6 @@
 import {BASE_URL} from '../../constants/AppConstants'
 import {setExercises, updateExerciseForm} from '../../actions/ExerciseActions'
+import { toast } from 'react-toastify';
 import {authorisedHeaders} from '../authorised_request.js'
 import axios from 'axios'
 
@@ -37,9 +38,16 @@ const sendExerciseRequest = (exercise, url, method) => {
       } else {
         updateExerciseForm({responseSuccess: true})
         setExercises(response.exercises)
+        toastNotification(response.message)
       }
     })
     .catch(error => console.log(error.message))
+}
+
+const toastNotification = (message) => {
+  toast.success(message, {
+    position: toast.POSITION.BOTTOM_RIGHT
+  });
 }
 
 export const createExercise = (exercise) => {
@@ -66,6 +74,7 @@ export const deleteExercise = (exerciseId) => {
         console.log(response.errorss)
       } else {
         setExercises(response.exercises)
+        toastNotification(response.message)
       }
     })
 }

@@ -13,6 +13,8 @@ import ExerciseIndex from './exercise/Index'
 import SignUpForm from './auth/SignUpForm'
 import SignInForm from './auth/SignInForm'
 import {clearCurrentUser} from '../actions/AuthActions'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 class App extends React.Component {
@@ -35,6 +37,7 @@ class App extends React.Component {
   render() {
     return (
       <Router>
+        <ToastContainer />
         <NavBar {...this.state}/>
         <Switch>
           <Route path="/sign_up" render={(props) => <SignUpForm {...props} {...this.state} />} />
