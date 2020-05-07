@@ -28,14 +28,14 @@ const sendExerciseRequest = (exercise, url, method) => {
     headers: authorisedHeaders(),
     body: body
   })
-    .then((response) => {
-      if (response.statusText === "OK") {
-        if (response.errors) {
-          updateExerciseForm({errors: response.errors})
+    .then(({data, statusText}) => {
+      if (statusText === "OK") {
+        if (data.errors) {
+          updateExerciseForm({errors: data.errors})
         } else {
           updateExerciseForm({responseSuccess: true})
-          appendExercise(response.data.exercise)
-          toastNotification(response.message)
+          appendExercise(data.exercise)
+          toastNotification(data.message)
         }
       } else {
         throw new Error("Network response was not ok.")

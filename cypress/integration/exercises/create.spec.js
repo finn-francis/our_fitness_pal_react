@@ -14,7 +14,7 @@ describe('Exercise creation', () => {
         cy.visit('/exercises')
       })
 
-      it.only('should add the new exercise to the list', () => {
+      it('should add the new exercise to the list', () => {
         cy.get('#exercise-list')
           .as('exerciseList')
           .should('have.length', 0)
@@ -36,6 +36,39 @@ describe('Exercise creation', () => {
 
         cy.get('#exercise-list')
           .should('have.length', 1)
+      })
+    })
+
+    context('with errors', () => {
+      beforeEach(() => {
+        cy.route('POST', postUrl, {errors: {name: ['Must be unique']}})
+        cy.visit('/exercises')
+      })
+
+      it('should display errors on the form', () => {
+        cy.get('#exercise-list')
+          .as('exerciseList')
+          .should('have.length', 0)
+
+        cy.get('#exercise-modal-button')
+          .click()
+
+        cy.get('#exerciseName')
+          .should('be.visible')
+          .type('Squat')
+          .should('have.value', 'Squat')
+        cy.get('#exerciseDescription')
+          .should('be.visible')
+          .type('Go low!')
+          .should('have.value', 'Go low!')
+
+        cy.get('#exerciseForm button[type="submit"]')
+          .click()
+
+        cy.get('#exercise-list')
+          .should('have.length', 0)
+        cy.get('.alert-danger')
+          .should('contain', 'Must be unique')
       })
     })
   })
