@@ -1,5 +1,6 @@
 import {BASE_URL} from '../../constants/AppConstants'
 import {setExercises, updateExerciseForm} from '../../actions/ExerciseActions'
+import {authorisedHeaders} from '../authorised_request.js'
 import axios from 'axios'
 
 export const fetchExerciseIndex = () => {
@@ -22,7 +23,7 @@ const sendExerciseRequest = (exercise, url, method) => {
 
   fetch(url, {
     method: method,
-    headers: {"Content-Type": "application/json"},
+    headers: authorisedHeaders(),
     body: JSON.stringify(body)
   })
     .then(response => {
@@ -52,7 +53,7 @@ export const updateExercise = (exercise) => {
 export const deleteExercise = (exerciseId) => {
   fetch(`${BASE_URL}/exercises/${exerciseId}`, {
     method: "DELETE",
-    headers: {"Content-Type": "application/json"}
+    headers: authorisedHeaders()
   })
     .then(response => {
       if (response.ok)
