@@ -12,7 +12,7 @@ class FormStore extends EventEmitter {
     this.userObject = {
       email: "",
       password: "",
-      passwordConfirmation: "",
+      password_confirmation: "",
       errors: {},
       formAction: 'new',
       responseSuccess: null

@@ -34,7 +34,7 @@ export const createUser = (user) => {
     user: {
       email: user.email,
       password: user.password,
-      password_confirmation: user.passwordConfirmation
+      password_confirmation: user.password_confirmation
     }
   }
   sendUserRequest(`${BASE_URL}/users`, 'POST', body)
