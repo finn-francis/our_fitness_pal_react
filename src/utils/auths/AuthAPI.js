@@ -12,6 +12,8 @@ const sendUserRequest = (url, method, body) => {
     .then(response => {
       if (response.ok)
         return response.json()
+      else if (response.status === 401)
+        updateSignUpForm({errors: {email: ["Email or Password is incorrect"]}})
       throw new Error("Network response was not ok.")
     })
     .then(response => {

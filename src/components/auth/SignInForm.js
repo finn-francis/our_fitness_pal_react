@@ -38,9 +38,9 @@ class SignInForm extends React.Component {
     }
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className="container">
+        <div className="container mt-3">
           <div className="form-group">
-            <Input label="Email" labelHtmlFor="email" errors={""}>
+            <Input label="Email" labelHtmlFor="email" errors={this.state.user.errors.email}>
               <input
                 type="text"
                 name="email"
@@ -51,18 +51,18 @@ class SignInForm extends React.Component {
                 onChange={this.handleChange}
                 />
             </Input>
+            <Input label="Password" labelHtmlFor="password" errors={this.state.user.errors.password}>
+              <input
+                type="password"
+                name="password"
+                id="userPassword"
+                className="form-control"
+                required
+                value={this.state.user.password}
+                onChange={this.handleChange}
+                />
+            </Input>
           </div>
-          <Input label="Password" labelHtmlFor="password" errors={""}>
-            <input
-              type="password"
-              name="password"
-              id="userPassword"
-              className="form-control"
-              required
-              value={this.state.user.password}
-              onChange={this.handleChange}
-            />
-          </Input>
           <button type="button" className="btn btn-info confirm-button" onClick={this.handleSubmit.bind(this)}>Sign In</button>
         </div>
       </form>
