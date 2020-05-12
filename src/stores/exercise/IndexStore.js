@@ -22,6 +22,12 @@ class IndexStore extends EventEmitter {
     this.emit("change")
   }
 
+  updateEditedExercise(exercise) {
+    let oldExercise = this.exercises.find(e => e.id === exercise.id)
+    this.exercises[this.exercises.indexOf(oldExercise)] = exercise
+    this.emit("change")
+  }
+
   handleActions(action) {
     switch(action.type) {
       case "setExercises":
@@ -29,6 +35,9 @@ class IndexStore extends EventEmitter {
         break
       case "appendExercise":
         this.appendExercise(action.exercise)
+        break
+      case "updateEditedExercise":
+        this.updateEditedExercise(action.exercise)
         break
       default:
         break

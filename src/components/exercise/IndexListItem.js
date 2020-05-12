@@ -16,14 +16,14 @@ const IndexListItem = (props) => {
   const editDeleteButtons = () => {
     return (
       <>
-        <button type="button" className="btn btn-danger float-right ml-2" data-toggle="modal" data-target={`#${props.deleteModalId}`} onClick={handleDelete}>Delete</button>
-        <button type="button" className="btn btn-info float-right" data-toggle="modal" data-target={`#${props.editModalId}`} onClick={editExercise}>Edit</button>
+        <button type="button" className="btn btn-danger float-right delete-exercise ml-2" data-toggle="modal" data-target={`#${props.deleteModalId}`} onClick={handleDelete}>Delete</button>
+        <button type="button" className="btn btn-info float-right edit-exercise" data-toggle="modal" data-target={`#${props.editModalId}`} onClick={editExercise}>Edit</button>
       </>
     )
   }
 
   return (
-    <li className="list-group-item exercise-list-item">
+    <li key={props.exercise.id} className="list-group-item exercise-list-item">
       {props.exercise.name}
       {props.user ? editDeleteButtons() : ''}
     </li>
