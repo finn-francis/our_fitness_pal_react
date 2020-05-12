@@ -1,7 +1,7 @@
 import React from 'react'
 import Input from '../forms/Input'
 import AuthFormStore from '../../stores/auth/FormStore'
-import {updateSignUpForm} from '../../actions/AuthActions'
+import {updateSignUpForm, clearFormUser} from '../../actions/AuthActions'
 import {createUser} from "../../utils/auths/AuthAPI"
 import {Redirect} from 'react-router-dom'
 import Cookies from 'js-cookie'
@@ -10,6 +10,7 @@ class SignUpForm extends React.Component {
   constructor(props) {
     super(props)
 
+    clearFormUser()
     this.state = {
       user: AuthFormStore.getAll(),
     }
@@ -28,6 +29,10 @@ class SignUpForm extends React.Component {
     createUser(this.state.user)
   }
 
+  componentWillUnmount() {
+    AuthFormStore.removeAllListeners()
+  }
+
   render() {
     if (Cookies.get('token')) {
       return <Redirect to='/' />
@@ -36,7 +41,7 @@ class SignUpForm extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <div className="container">
           <div className="form-group">
-            <Input label="Email" labelHtmlFor="email" errors={""}>
+            <Input label="Email" labelHtmlFor="email" errors={this.state.user.errors.email}>
               <input
                 type="text"
                 name="email"
@@ -48,7 +53,7 @@ class SignUpForm extends React.Component {
                 />
             </Input>
           </div>
-          <Input label="Password" labelHtmlFor="password" errors={""}>
+          <Input label="Password" labelHtmlFor="password" errors={this.state.user.errors.password}>
             <input
               type="password"
               name="password"
@@ -59,14 +64,14 @@ class SignUpForm extends React.Component {
               onChange={this.handleChange}
             />
           </Input>
-          <Input label="Password Confirmation" labelHtmlFor="passwordConfirmation" errors={""}>
+          <Input label="Password Confirmation" labelHtmlFor="password_confirmation" errors={this.state.user.errors.password_confirmation}>
             <input
               type="password"
-              name="passwordConfirmation"
+              name="password_confirmation"
               id="userPasswordConfirmation"
               className="form-control"
               required
-              value={this.state.user.passwordConfirmation}
+              value={this.state.user.password_confirmation}
               onChange={this.handleChange}
             />
           </Input>
