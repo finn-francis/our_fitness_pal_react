@@ -6,6 +6,7 @@ describe('Exercise creation', () => {
     beforeEach(() => {
       cy.server()
       cy.route('GET', indexUrl, {exercises: []})
+      cy.setCookie('user', "{id: 1, email: 'ben@ben.com'}")
     })
 
     context('success', () => {

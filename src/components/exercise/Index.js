@@ -49,8 +49,8 @@ class Index extends React.Component {
 
     return (
       <>
-        <ul id="exercise-list" className="list-group">
-          {exercises.map(exercise => <IndexListItem key={exercise.id} exercise={exercise} editModalId={exerciseModalId} deleteModalId={confirmationModalId} />)}
+        <ul id="exercise-list" className="list-group mt-3">
+          {exercises.map(exercise => <IndexListItem key={exercise.id} exercise={exercise} user={this.props.auth} editModalId={exerciseModalId} deleteModalId={confirmationModalId} />)}
         </ul>
       </>
     )
@@ -64,16 +64,21 @@ class Index extends React.Component {
     )
   }
 
+  createExerciseButton(exerciseModalId) {
+    return(
+      <FormModalButton modalId={exerciseModalId}>
+        New Exercise
+      </FormModalButton>
+    )
+  }
+
   render() {
     const {exerciseModalId, confirmationModalId} = this.props
     const title = `Are you sure you want to delete ${this.state.selectedExercise.name}?`
 
     return (
-      <div className="container">
-        <FormModalButton modalId={exerciseModalId}>
-          New Exercise
-        </FormModalButton>
-
+      <div className="container mt-3">
+        {this.props.auth ? this.createExerciseButton(exerciseModalId) : ''}
         {this.state.exercises.length === 0 ? this.noExercises() : this.renderExercises()}
         <FormModal id={exerciseModalId} exercise={this.state.exerciseForm} title="Exercise" />
         <ConfirmationModal

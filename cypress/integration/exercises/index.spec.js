@@ -7,6 +7,7 @@ describe('Index', () => {
       cy.fixture('exercises/all').then(exercises => {
         cy.route('GET', indexUrl, {exercises: exercises})
       })
+      cy.setCookie('user', "{id: 1, email: 'ben@ben.com'}")
       cy.visit('/exercises')
     })
 
@@ -21,8 +22,8 @@ describe('Index', () => {
         .and('contain', 'New Exercise')
 
       cy.get('.exercise-list-item')
-        .and('contain', 'edit')
-        .and('contain', 'delete')
+        .and('contain', 'Edit')
+        .and('contain', 'Delete')
     })
   })
 
@@ -30,6 +31,7 @@ describe('Index', () => {
     beforeEach(() => {
       cy.server()
       cy.route('GET', indexUrl, {exercises: []})
+      cy.setCookie('user', "{id: 1, email: 'ben@ben.com'}")
       cy.visit('/exercises')
     })
 
