@@ -9,6 +9,7 @@ describe('Updating exercises', () => {
     beforeEach(() => {
       cy.server()
       cy.route('GET', indexUrl, {exercises: [oldExercise]})
+      cy.setCookie('user', "{id: 1, email: 'ben@ben.com'}")
     })
 
     context('success', () => {
