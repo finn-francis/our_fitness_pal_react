@@ -14,10 +14,10 @@ const IndexListItem = (props) => {
   }
 
   return (
-    <li className="list-group-item exercise-list-item">
+    <li key={props.exercise.id} className="list-group-item exercise-list-item">
       {props.exercise.name}
-      <button type="button" className="btn btn-danger float-right" data-toggle="modal" data-target={`#${props.deleteModalId}`} onClick={handleDelete}>delete</button>
-      <button type="button" className="btn btn-info float-right" data-toggle="modal" data-target={`#${props.editModalId}`} onClick={editExercise}>edit</button>
+      <button type="button" className="btn btn-danger float-right delete-exercise" data-toggle="modal" data-target={`#${props.deleteModalId}`} onClick={handleDelete}>delete</button>
+      <button type="button" className="btn btn-info float-right edit-exercise" data-toggle="modal" data-target={`#${props.editModalId}`} onClick={editExercise}>edit</button>
     </li>
   )
 }

@@ -1,5 +1,5 @@
 import {BASE_URL} from '../../constants/AppConstants'
-import {setExercises, updateExerciseForm} from '../../actions/ExerciseActions'
+import {setExercises, updateExerciseForm, appendExercise, updateEditedExercise} from '../../actions/ExerciseActions'
 import { toast } from 'react-toastify'
 import {authorisedHeaders} from '../authorised_request.js'
 import axios from 'axios'
@@ -26,7 +26,7 @@ const sendExerciseRequest = (exercise, url, method) => {
     url: url,
     method: method,
     headers: authorisedHeaders(),
-    body: body
+    data: JSON.stringify(body)
   })
     .then(({data, statusText}) => {
       if (statusText === "OK") {
@@ -34,8 +34,13 @@ const sendExerciseRequest = (exercise, url, method) => {
           updateExerciseForm({errors: data.errors})
         } else {
           updateExerciseForm({responseSuccess: true})
-          appendExercise(data.exercise)
           toastNotification(data.message)
+
+          if (method === 'POST') {
+            appendExercise(data.exercise)
+          } else {
+            updateEditedExercise(data.exercise)
+          }
         }
       } else {
         throw new Error("Network response was not ok.")

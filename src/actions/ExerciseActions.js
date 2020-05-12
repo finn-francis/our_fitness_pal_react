@@ -21,6 +21,13 @@ export const appendExercise = (exercise) => {
   })
 }
 
+export const updateEditedExercise = (exercise) => {
+  dispatcher.dispatch({
+    type: 'updateEditedExercise',
+    exercise: exercise
+  })
+}
+
 export const clearFormExercise = () => {
   setTimeout(() => {
     dispatcher.dispatch({type: 'clearFormExercise'})
