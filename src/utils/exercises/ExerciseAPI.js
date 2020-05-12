@@ -1,6 +1,6 @@
 import {BASE_URL} from '../../constants/AppConstants'
 import {setExercises, updateExerciseForm} from '../../actions/ExerciseActions'
-import { toast } from 'react-toastify';
+import { toast } from 'react-toastify'
 import {authorisedHeaders} from '../authorised_request.js'
 import axios from 'axios'
 
@@ -22,23 +22,23 @@ const sendExerciseRequest = (exercise, url, method) => {
     }
   }
 
-  fetch(url, {
+  axios({
+    url: url,
     method: method,
     headers: authorisedHeaders(),
-    body: JSON.stringify(body)
+    body: body
   })
-    .then(response => {
-      if (response.ok)
-        return response.json()
-      throw new Error("Network response was not ok.")
-    })
-    .then(response => {
-      if (response.errors) {
-        updateExerciseForm({errors: response.errors})
+    .then(({data, statusText}) => {
+      if (statusText === "OK") {
+        if (data.errors) {
+          updateExerciseForm({errors: data.errors})
+        } else {
+          updateExerciseForm({responseSuccess: true})
+          appendExercise(data.exercise)
+          toastNotification(data.message)
+        }
       } else {
-        updateExerciseForm({responseSuccess: true})
-        setExercises(response.exercises)
-        toastNotification(response.message)
+        throw new Error("Network response was not ok.")
       }
     })
     .catch(error => console.log(error.message))
@@ -47,7 +47,7 @@ const sendExerciseRequest = (exercise, url, method) => {
 const toastNotification = (message) => {
   toast.success(message, {
     position: toast.POSITION.BOTTOM_RIGHT
-  });
+  })
 }
 
 export const createExercise = (exercise) => {
