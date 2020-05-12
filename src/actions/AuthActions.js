@@ -21,6 +21,13 @@ export const updateSignInForm = (user) => {
   })
 }
 
+export const clearFormUser = (user) => {
+  dispatcher.dispatch({
+    type: 'clearFormUser',
+    user: user
+  })
+}
+
 export const clearCurrentUser = () => {
   setTimeout(() => {
     dispatcher.dispatch({

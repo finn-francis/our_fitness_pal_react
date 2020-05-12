@@ -1,7 +1,7 @@
 import React from 'react'
 import Input from '../forms/Input'
 import AuthFormStore from '../../stores/auth/FormStore'
-import {updateSignUpForm} from '../../actions/AuthActions'
+import {updateSignUpForm, clearFormUser} from '../../actions/AuthActions'
 import {createUser} from "../../utils/auths/AuthAPI"
 import {Redirect} from 'react-router-dom'
 import Cookies from 'js-cookie'
@@ -10,6 +10,7 @@ class SignUpForm extends React.Component {
   constructor(props) {
     super(props)
 
+    clearFormUser()
     this.state = {
       user: AuthFormStore.getAll(),
     }
@@ -26,6 +27,10 @@ class SignUpForm extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault()
     createUser(this.state.user)
+  }
+
+  componentWillUnmount() {
+    AuthFormStore.removeAllListeners()
   }
 
   render() {

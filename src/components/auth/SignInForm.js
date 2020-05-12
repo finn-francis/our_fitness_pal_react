@@ -1,7 +1,7 @@
 import React from 'react'
 import Input from '../forms/Input'
 import AuthFormStore from '../../stores/auth/FormStore'
-import {updateSignInForm} from '../../actions/AuthActions'
+import {updateSignInForm, clearFormUser} from '../../actions/AuthActions'
 import {signInUser} from "../../utils/auths/AuthAPI"
 import {Redirect} from 'react-router-dom'
 import Cookies from 'js-cookie'
@@ -10,6 +10,7 @@ class SignInForm extends React.Component {
   constructor(props) {
     super(props)
 
+    clearFormUser()
     this.state = {
       user: AuthFormStore.getAll(),
     }
