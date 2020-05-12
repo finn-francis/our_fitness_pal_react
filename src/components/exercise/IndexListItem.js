@@ -16,8 +16,8 @@ const IndexListItem = (props) => {
   return (
     <li className="list-group-item exercise-list-item">
       {props.exercise.name}
-      <button type="button" className="btn btn-danger float-right" data-toggle="modal" data-target={`#${props.deleteModalId}`} onClick={handleDelete}>delete</button>
-      <button type="button" className="btn btn-info float-right" data-toggle="modal" data-target={`#${props.editModalId}`} onClick={editExercise}>edit</button>
+      <button type="button" className="btn btn-danger float-right ml-2" data-toggle="modal" data-target={`#${props.deleteModalId}`} onClick={handleDelete}>Delete</button>
+      <button type="button" className="btn btn-info float-right" data-toggle="modal" data-target={`#${props.editModalId}`} onClick={editExercise}>Edit</button>
     </li>
   )
 }

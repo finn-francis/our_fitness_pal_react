@@ -43,7 +43,7 @@ class Index extends React.Component {
 
     return (
       <>
-        <ul id="exercise-list" className="list-group">
+        <ul id="exercise-list" className="list-group mt-3">
           {exercises.map(exercise => <IndexListItem key={exercise.id} exercise={exercise} editModalId={exerciseModalId} deleteModalId={confirmationModalId} />)}
         </ul>
       </>
@@ -63,7 +63,7 @@ class Index extends React.Component {
     const title = `Are you sure you want to delete ${this.state.selectedExercise.name}?`
 
     return (
-      <div className="container">
+      <div className="container mt-3">
         <FormModalButton modalId={exerciseModalId}>
           New Exercise
         </FormModalButton>

@@ -1,5 +1,5 @@
 import {BASE_URL} from '../../constants/AppConstants'
-import {setExercises, updateExerciseForm} from '../../actions/ExerciseActions'
+import {setExercises, updateExerciseForm, appendExercise} from '../../actions/ExerciseActions'
 import { toast } from 'react-toastify'
 import {authorisedHeaders} from '../authorised_request.js'
 import axios from 'axios'
