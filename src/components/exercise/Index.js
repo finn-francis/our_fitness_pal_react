@@ -33,6 +33,12 @@ class Index extends React.Component {
     fetchExerciseIndex()
   }
 
+  componentWillUnmount() {
+    ExerciseFormStore.removeAllListeners()
+    ExerciseIndexStore.removeAllListeners()
+    SelectedExerciseStore.removeAllListeners()
+  }
+
   deleteExercise() {
     deleteExercise(this.state.selectedExercise.id)
   }
