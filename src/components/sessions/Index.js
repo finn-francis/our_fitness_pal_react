@@ -23,6 +23,11 @@ class Index extends React.Component {
     fetchSessions()
   }
 
+  componentWillUnmount() {
+    IndexStore.removeAllListeners()
+    FormStore.removeAllListeners()
+  }
+
   renderSessions() {
     const {sessions} = this.state
 
