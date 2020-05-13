@@ -28,6 +28,11 @@ class IndexStore extends EventEmitter {
     this.emit("change")
   }
 
+  removeExercise(id) {
+    this.exercises = this.exercises.filter(exercise => exercise.id !== id)
+    this.emit("change")
+  }
+
   handleActions(action) {
     switch(action.type) {
       case "setExercises":
@@ -38,6 +43,9 @@ class IndexStore extends EventEmitter {
         break
       case "updateEditedExercise":
         this.updateEditedExercise(action.exercise)
+        break
+      case "removeExercise":
+        this.removeExercise(action.id)
         break
       default:
         break

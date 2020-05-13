@@ -23,3 +23,7 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add("login", (user) => {
+  cy.setCookie('user', JSON.stringify({id: user.id, email: user.email}))
+})

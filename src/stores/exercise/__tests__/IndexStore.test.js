@@ -41,8 +41,25 @@ describe('updateEditedExercise', () => {
   const updatedExercise = {'id': 2, name: 'Chest press', 'description': 'Do a press'}
 
   it('should update a selected exercise in the list', () => {
-    expect(IndexStore.exercises[1]).toNotEqual(updatedExercise)
+    IndexStore.exercises = exerciseList
+    expect(IndexStore.exercises[1]).not.toEqual(updatedExercise)
     IndexStore.updateEditedExercise(updatedExercise)
     expect(IndexStore.exercises[1]).toEqual(updatedExercise)
+  })
+})
+
+describe('removeExercise', () => {
+  const deletedExercise = {"id": 1, "name": "Squat", "description": "Go Low!"}
+  const hasExercise = (id) => {
+    return IndexStore.exercises.find(exercise => exercise.id === id) !== undefined
+  }
+
+  it('should remove the given exercise from the index', () => {
+    IndexStore.exercises = exerciseList
+    expect(hasExercise(deletedExercise.id)).toEqual(true)
+
+    IndexStore.removeExercise(deletedExercise.id)
+
+    expect(hasExercise(deletedExercise.id)).toEqual(false)
   })
 })

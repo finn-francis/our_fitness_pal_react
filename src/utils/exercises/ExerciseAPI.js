@@ -1,5 +1,5 @@
 import {BASE_URL} from '../../constants/AppConstants'
-import {setExercises, updateExerciseForm, appendExercise, updateEditedExercise} from '../../actions/ExerciseActions'
+import {setExercises, updateExerciseForm, appendExercise, updateEditedExercise, removeExercise, clearSelectedExercise} from '../../actions/ExerciseActions'
 import { toast } from 'react-toastify'
 import {authorisedHeaders} from '../authorised_request.js'
 import axios from 'axios'
@@ -64,22 +64,17 @@ export const updateExercise = (exercise) => {
 }
 
 export const deleteExercise = (exerciseId) => {
-  fetch(`${BASE_URL}/exercises/${exerciseId}`, {
-    method: "DELETE",
+  axios.delete(`${BASE_URL}/exercises/${exerciseId}`, {
     headers: authorisedHeaders()
   })
-    .then(response => {
-      if (response.ok)
-        return response.json()
-      throw new Error("Network response not ok.")
-    })
-    .then(response => {
-      if (response.errors) {
-        // TODO (Finn): Add toast notifications
-        console.log(response.errorss)
+    .then(({data, statusText}) => {
+      if (statusText === 'OK') {
+        clearSelectedExercise()
+        removeExercise(data.exercise.id)
+        toastNotification(data.message)
       } else {
-        setExercises(response.exercises)
-        toastNotification(response.message)
+        throw new Error("Network response was not ok.")
       }
     })
+    .catch(error => console.log(error.message))
 }
