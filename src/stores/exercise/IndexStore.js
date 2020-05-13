@@ -44,6 +44,9 @@ class IndexStore extends EventEmitter {
       case "updateEditedExercise":
         this.updateEditedExercise(action.exercise)
         break
+      case "removeExercise":
+        this.removeExercise(action.id)
+        break
       default:
         break
     }

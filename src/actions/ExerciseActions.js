@@ -28,6 +28,10 @@ export const updateEditedExercise = (exercise) => {
   })
 }
 
+export const removeExercise = (id) => {
+  dispatcher.dispatch({type: 'removeExercise', id: id})
+}
+
 export const clearFormExercise = () => {
   setTimeout(() => {
     dispatcher.dispatch({type: 'clearFormExercise'})
