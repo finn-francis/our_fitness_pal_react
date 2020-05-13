@@ -1,13 +1,19 @@
+import axios from 'axios'
 import {BASE_URL} from '../../constants/AppConstants'
 import {setSessions, updateSessionForm} from '../../actions/SessionActions'
+import {authorisedHeaders} from '../authorised_request.js'
 
 export const fetchSessions = () => {
-  fetch(`${BASE_URL}/sessions`)
-    .then(response => {
-      if (response.ok)
-        return response.json()
-      throw new Error("Network response was not ok.")})
-    .then(response => setSessions(response.data))
+  axios.get(`${BASE_URL}/sessions`, {
+    headers: authorisedHeaders()
+  })
+    .then(({data, statusText}) => {
+      if (statusText === 'OK') {
+        setSessions(data.sessions)
+      } else {
+        throw new Error("Network response was not ok.")
+      }
+    })
     .catch(error => console.log(error.message))
 }
 

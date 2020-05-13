@@ -43,7 +43,7 @@ class Index extends React.Component {
   noSessions() {
     return (
       <h2 className='no-sessions'>
-        No exercises
+        No sessions
       </h2>
     )
   }
@@ -54,7 +54,7 @@ class Index extends React.Component {
     return (
       <div className="container">
         <FormModalButton id='session-modal-button' modalId={formModalId}>
-          New Exercise
+          New Session
         </FormModalButton>
         {this.state.sessions.length < 1 ? this.noSessions() : this.renderSessions()}
         <FormModal session={this.state.sessionForm} id={formModalId} title='Session' />
