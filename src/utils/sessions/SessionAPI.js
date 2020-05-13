@@ -25,23 +25,23 @@ export const createSession = (session) => {
     }
   }
 
-  fetch(`${BASE_URL}/sessions`, {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(body)
+  axios({
+    url: `${BASE_URL}/sessions`,
+    method: 'POST',
+    headers: authorisedHeaders(),
+    data: JSON.stringify(body)
   })
-    .then(response => {
-      if (response.ok)
-        return response.json()
-      throw new Error("Network response was not ok.")
-    })
-    .then(response => {
-      if (response.errors) {
-        updateSessionForm({errors: response.errors})
+    .then(({data, statusText}) => {
+      if (statusText === 'OK') {
+        if (data.errors) {
+          updateSessionForm({errors: data.errors})
+        } else {
+          updateSessionForm({responseSuccess: true, id: data.id})
+          // TODO: Send the user to a session show/management page and remove fetchSessions from below
+          setSessions(data.sessions)
+        }
       } else {
-        updateSessionForm({responseSuccess: true, id: response.data.id})
-        // TODO: Send the user to a session show/management page and remove fetchSessions from below
-        fetchSessions()
+        throw new Error("Network response was not ok.")
       }
     })
     .catch(error => console.log(error.message))
