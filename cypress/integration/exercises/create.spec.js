@@ -1,3 +1,5 @@
+import admin from '../../fixtures/users/admin.json'
+
 describe('Exercise creation', () => {
   const indexUrl = Cypress.env('apiUrl') + '/exercises'
   const postUrl = indexUrl
@@ -6,7 +8,7 @@ describe('Exercise creation', () => {
     beforeEach(() => {
       cy.server()
       cy.route('GET', indexUrl, {exercises: []})
-      cy.setCookie('user', "{id: 1, email: 'ben@ben.com'}")
+      cy.login(admin)
     })
 
     context('success', () => {

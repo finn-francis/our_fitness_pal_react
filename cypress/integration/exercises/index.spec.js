@@ -1,5 +1,9 @@
+import admin from '../../fixtures/users/admin.json'
+
 describe('Index', () => {
   const indexUrl = Cypress.env('apiUrl') + '/exercises'
+
+  beforeEach(() => cy.login(admin))
 
   context("when there are existing exercises", () => {
     beforeEach(() => {
@@ -7,7 +11,6 @@ describe('Index', () => {
       cy.fixture('exercises/all').then(exercises => {
         cy.route('GET', indexUrl, {exercises: exercises})
       })
-      cy.setCookie('user', "{id: 1, email: 'ben@ben.com'}")
       cy.visit('/exercises')
     })
 
@@ -31,7 +34,6 @@ describe('Index', () => {
     beforeEach(() => {
       cy.server()
       cy.route('GET', indexUrl, {exercises: []})
-      cy.setCookie('user', "{id: 1, email: 'ben@ben.com'}")
       cy.visit('/exercises')
     })
 
