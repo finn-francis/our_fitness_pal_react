@@ -25,15 +25,15 @@ describe('Exercise creation', () => {
         cy.get('#exercise-modal-button')
           .click()
 
-        cy.get('#exerciseDescription')
-          .should('be.visible')
-          .type('Go low!')
-          .should('have.value', 'Go low!')
-
         cy.get('#exerciseName')
           .should('be.visible')
-          .type('Squat')
+          .type('Squat', {force: true})
           .should('have.value', 'Squat')
+
+        cy.get('#exerciseDescription')
+          .should('be.visible')
+          .type('Go low!', {force: true})
+          .should('have.value', 'Go low!')
 
         cy.get('#exerciseForm button[type="submit"]')
           .click()
@@ -57,15 +57,16 @@ describe('Exercise creation', () => {
         cy.get('#exercise-modal-button')
           .click()
 
-        cy.get('#exerciseDescription')
-          .should('be.visible')
-          .type('Go low!')
-          .should('have.value', 'Go low!')
 
         cy.get('#exerciseName')
           .should('be.visible')
-          .type('Squat')
+          .type('Squat', {force: true})
           .should('have.value', 'Squat')
+
+        cy.get('#exerciseDescription')
+          .should('be.visible')
+          .type('Go low!', {force: true})
+          .should('have.value', 'Go low!')
 
         cy.get('#exerciseForm button[type="submit"]')
           .click()

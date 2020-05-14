@@ -1,39 +1,22 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import {FullScreenModal, FullScreenModalHeader, FullScreenModalFooter} from '../modals/FullScreenModal'
-import {updateExerciseForm, clearFormExercise} from '../../actions/ExerciseActions'
-import {createExercise, updateExercise} from '../../utils/exercises/ExerciseAPI'
+import {updateSessionForm, clearSessionForm} from '../../actions/SessionActions'
+import {createSession} from '../../utils/sessions/SessionAPI'
 import Input from '../forms/Input'
 
 const FormModal = (props) => {
-  const {exercise: {name, description}} = props
-  const closeButtonRef = React.useRef(null)
-
-  useEffect(() => {
-    if (props.exercise.responseSuccess)
-      closeButtonRef.current.click()
-  })
-
   const handleChange = (event) => {
-    updateExerciseForm({[event.target.name]: event.target.value})
+    updateSessionForm({[event.target.name]: event.target.value})
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    switch (props.exercise.formAction) {
-      case "new":
-        createExercise(props.exercise)
-        break
-      case "edit":
-        updateExercise(props.exercise)
-        break
-      default:
-        break
-    }
+    createSession(props.session)
   }
 
   const modalTitle = () => {
-    const {exercise: {formAction}, title} = props
+    const {session: {formAction}, title} = props
     let action = formAction[0].toUpperCase() + formAction.slice(1)
 
     return `${action} ${title}`
@@ -48,39 +31,39 @@ const FormModal = (props) => {
 
         <div className="modal-body">
           <div className="form-group">
-            <Input label="Name" labelHtmlFor="name" errors={props.exercise.errors.name}>
+            <Input label="Name" labelHtmlFor="name" errors={props.session.errors.name}>
               <input
                 type="text"
                 name="name"
-                id="exerciseName"
+                id="sessionName"
                 className="form-control"
                 required
-                value={name}
+                value={props.session.name}
                 onChange={handleChange}
                 />
             </Input>
           </div>
-          <Input label="Description" labelHtmlFor="description" errors={props.exercise.errors.description}>
+          <Input label="Description" labelHtmlFor="description" errors={props.session.errors.description}>
             <textarea
               className="form-control"
-              id="exerciseDescription"
+              id="sessionDescription"
               name="description"
               rows="5"
               required
-              value={description}
+              value={props.session.description}
               onChange={handleChange}
             />
           </Input>
         </div>
 
         <FullScreenModalFooter>
-          <button ref={closeButtonRef} onClick={clearFormExercise} type="button" className="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
+          <button onClick={clearSessionForm} type="button" className="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
           <button type="submit" className="btn btn-info btn-md">Save changes</button>
         </FullScreenModalFooter>
       </form>
     </FullScreenModal>
   )
 }
-FormModal.propTypes = {exercise: PropTypes.object.isRequired, title: PropTypes.string.isRequired}
+FormModal.propTypes = {session: PropTypes.object.isRequired, title: PropTypes.string.isRequired}
 
 export default FormModal

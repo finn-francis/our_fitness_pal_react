@@ -23,7 +23,7 @@ describe('Deleting an exercise', () => {
         .should('contain', deletedExercise.name)
     })
 
-    it.only('should remove the exercise from the index', () => {
+    it('should remove the exercise from the index', () => {
       cy.get(':nth-child(1) > .delete-exercise')
         .click()
         .get('.modal-content > .modal-footer > .btn-info')

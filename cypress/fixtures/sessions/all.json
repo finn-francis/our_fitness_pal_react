@@ -1,0 +1,5 @@
+[
+  {"id": 1, "name": "Leg day", "description": "Lots of squats", "user_id": 1},
+  {"id": 2, "name": "Chest day", "description": "Heavy benchpress and such", "user_id": 1},
+  {"id": 3, "name": "Back day", "description": "Lifting big weights off the floor", "user_id": 1}
+]

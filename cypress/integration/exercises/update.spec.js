@@ -24,14 +24,13 @@ describe('Updating exercises', () => {
       })
 
       it('Should update the index with the new exercise', () => {
-        cy.get('#exerciseDescription')
-          .type(`{selectall}${newExercise.description}`)
-          .should('have.value', newExercise.description)
-
         cy.get('#exerciseName')
-          .type(`{selectall}${newExercise.name}`)
+          .type(`{selectall}${newExercise.name}`, {force: true})
           .should('have.value', newExercise.name)
 
+        cy.get('#exerciseDescription')
+          .type(`{selectall}${newExercise.description}`, {force: true})
+          .should('have.value', newExercise.description)
 
         cy.get('#exerciseForm button[type="submit"]')
           .click()
@@ -54,13 +53,13 @@ describe('Updating exercises', () => {
         cy.get('.edit-exercise')
           .click()
 
-        cy.get('#exerciseDescription')
-          .type(`{selectall}${newExercise.description}`)
-          .should('have.value', newExercise.description)
-
         cy.get('#exerciseName')
-          .type(`{selectall}${newExercise.name}`)
+          .type(`{selectall}${newExercise.name}`, {force: true})
           .should('have.value', newExercise.name)
+
+        cy.get('#exerciseDescription')
+          .type(`{selectall}${newExercise.description}`, {force: true})
+          .should('have.value', newExercise.description)
 
         cy.get('#exerciseForm button[type="submit"]')
           .click()
