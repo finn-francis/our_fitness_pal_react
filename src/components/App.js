@@ -11,6 +11,7 @@ import Home from './Home'
 import NavBar from './NavBar'
 import ExerciseIndex from './exercise/Index'
 import SessionIndex from './sessions/Index'
+import SessionShow from './sessions/Show'
 import SignUpForm from './auth/SignUpForm'
 import SignInForm from './auth/SignInForm'
 import {clearCurrentUser} from '../actions/AuthActions'
@@ -44,6 +45,7 @@ class App extends React.Component {
           <Route path="/sign_up" render={(props) => <SignUpForm {...props} {...this.state} />} />
           <Route path="/sign_in" render={(props) => <SignInForm {...props} {...this.state} />} />
           <Route path="/exercises" render={(props) => <ExerciseIndex {...props} {...this.state} />} />
+          <Route path="/sessions/:id" render={(props) => <SessionShow {...props} {...this.state} />} />
           <Route path="/sessions" render={(props) => <SessionIndex {...props} {...this.state} />} />
           <Route path="/" render={(props) => <Home {...props} {...this.state} />} />
         </Switch>

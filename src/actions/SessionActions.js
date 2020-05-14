@@ -17,3 +17,10 @@ export const updateSessionForm = (session) => {
     session: session
   })
 }
+
+export const setSession = (session) => {
+  dispatcher.dispatch({
+    type: 'setSession',
+    session: session
+  })
+}

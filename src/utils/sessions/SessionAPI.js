@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {BASE_URL} from '../../constants/AppConstants'
-import {setSessions, updateSessionForm} from '../../actions/SessionActions'
+import {setSessions, updateSessionForm, setSession} from '../../actions/SessionActions'
 import {authorisedHeaders} from '../authorised_request.js'
 
 export const fetchSessions = () => {
@@ -42,6 +42,20 @@ export const createSession = (session) => {
         }
       } else {
         throw new Error("Network response was not ok.")
+      }
+    })
+    .catch(error => console.log(error.message))
+}
+
+export const fetchSession = (id) => {
+  axios.get(`${BASE_URL}/sessions/${id}`, {
+    headers: authorisedHeaders()
+  })
+    .then(({data, statusText}) => {
+      if (statusText === 'OK') {
+        setSession(data.session)
+      } else {
+        throw new Error("Network response was not ok")
       }
     })
     .catch(error => console.log(error.message))
