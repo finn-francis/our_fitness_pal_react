@@ -14,7 +14,7 @@ describe('Viewing the show page for a session', () => {
       cy.visit(sessionPath)
     })
 
-    it.only('should allow the user to navigate to the show page by clicking a link on the index', () => {
+    it('should allow the user to navigate to the show page by clicking a link on the index', () => {
       cy.get('.session-title')
         .should('contain', session.name)
         .get('.session-description')
@@ -33,7 +33,7 @@ describe('Viewing the show page for a session', () => {
       cy.visit('/sessions')
     })
 
-    it.only('should allow the user to navigate to the show page by clicking a link on the index', () => {
+    it('should allow the user to navigate to the show page by clicking a link on the index', () => {
       cy.get(`a.view-session[href="${sessionPath}"]`)
         .click()
 

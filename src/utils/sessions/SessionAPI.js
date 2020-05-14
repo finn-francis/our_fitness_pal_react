@@ -52,8 +52,38 @@ export const fetchSession = (id) => {
     .then(({data, statusText}) => {
       if (statusText === 'OK') {
         setSession(data.session)
+        updateSessionForm({...data.session, formAction: 'edit'})
       } else {
         throw new Error("Network response was not ok")
+      }
+    })
+    .catch(error => console.log(error.message))
+}
+
+export const updateSession = (session) => {
+  const body = {
+    session: {
+      name: session.name,
+      description: session.description
+    }
+  }
+
+  axios({
+    url: `${BASE_URL}/sessions/${session.id}`,
+    method: 'PUT',
+    headers: authorisedHeaders(),
+    data: JSON.stringify(body)
+  })
+    .then(({data, statusText}) => {
+      if (statusText === 'OK') {
+        if (data.errors) {
+          updateSessionForm({errors: data.errors})
+        } else {
+          updateSessionForm({responseSuccess: true, id: data.session.id})
+          setSession(data.session)
+        }
+      } else {
+        throw new Error("Network response was not ok.")
       }
     })
     .catch(error => console.log(error.message))

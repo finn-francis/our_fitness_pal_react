@@ -1,18 +1,35 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {FullScreenModal, FullScreenModalHeader, FullScreenModalFooter} from '../modals/FullScreenModal'
 import {updateSessionForm, clearSessionForm} from '../../actions/SessionActions'
-import {createSession} from '../../utils/sessions/SessionAPI'
+import {createSession, updateSession} from '../../utils/sessions/SessionAPI'
 import Input from '../forms/Input'
 
 const FormModal = (props) => {
+  const closeButtonRef = React.useRef(null)
+
+  useEffect(() => {
+    if (props.session.responseSuccess)
+      closeButtonRef.current.click()
+  })
+
+
   const handleChange = (event) => {
     updateSessionForm({[event.target.name]: event.target.value})
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    createSession(props.session)
+    switch (props.session.formAction) {
+      case 'new':
+        createSession(props.session)
+        break
+      case 'edit':
+        updateSession(props.session)
+        break
+      default:
+      break
+    }
   }
 
   const modalTitle = () => {
@@ -57,7 +74,7 @@ const FormModal = (props) => {
         </div>
 
         <FullScreenModalFooter>
-          <button onClick={clearSessionForm} type="button" className="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
+          <button ref={closeButtonRef} onClick={props.onClose || clearSessionForm} type="button" className="btn btn-secondary btn-md" data-dismiss="modal">Close</button>
           <button type="submit" className="btn btn-info btn-md">Save changes</button>
         </FullScreenModalFooter>
       </form>
