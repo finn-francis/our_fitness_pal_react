@@ -22,11 +22,11 @@ describe('Creating a new session', () => {
 
     context('with valid input', () => {
       beforeEach(() => {
-        cy.route('POST', postUrl, {sessions: [...sessionsFixture, newSession]})
+        cy.route('POST', postUrl, {session: newSession})
         cy.visit('/sessions')
       })
 
-      it('should add a new session to the index', () => {
+      it('should add a new session and redirect them to the show page', () => {
         theOriginalSessionsAreShowing()
         cy.get('#session-modal-button')
           .click()
@@ -40,8 +40,8 @@ describe('Creating a new session', () => {
         cy.get('button[type="submit"')
           .click()
 
-        cy.get('.session-list-item')
-          .should('have.length', 4)
+        cy.location('pathname')
+          .should('eq', `/sessions/${newSession.id}`)
       })
     })
 

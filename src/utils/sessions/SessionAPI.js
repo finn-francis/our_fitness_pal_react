@@ -36,9 +36,7 @@ export const createSession = (session) => {
         if (data.errors) {
           updateSessionForm({errors: data.errors})
         } else {
-          updateSessionForm({responseSuccess: true, id: data.id})
-          // TODO: Send the user to a session show/management page and remove fetchSessions from below
-          setSessions(data.sessions)
+          updateSessionForm({responseSuccess: true, id: data.session.id})
         }
       } else {
         throw new Error("Network response was not ok.")

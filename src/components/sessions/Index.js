@@ -1,4 +1,5 @@
 import React from 'react'
+import {Redirect} from 'react-router-dom'
 import IndexStore from '../../stores/sessions/IndexStore'
 import IndexListItem from './IndexListItem'
 import {fetchSessions} from '../../utils/sessions/SessionAPI'
@@ -50,14 +51,16 @@ class Index extends React.Component {
 
   render() {
     const formModalId = 'session-form'
+    const {sessionForm, sessions} = this.state
 
     return (
       <div className="container">
+        {sessionForm.responseSuccess ? <Redirect to={`sessions/${sessionForm.id}`} /> : null}
         <FormModalButton id='session-modal-button' modalId={formModalId}>
           New Session
         </FormModalButton>
-        {this.state.sessions.length < 1 ? this.noSessions() : this.renderSessions()}
-        <FormModal session={this.state.sessionForm} id={formModalId} title='Session' />
+        {sessions.length < 1 ? this.noSessions() : this.renderSessions()}
+        <FormModal session={sessionForm} id={formModalId} title='Session' />
       </div>
     )
   }
