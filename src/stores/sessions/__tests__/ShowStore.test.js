@@ -29,6 +29,14 @@ describe('ShowStore', () => {
     })
   })
 
+  describe('#removeSession', () => {
+    it('should set isDeleted to true', () => {
+      expect(ShowStore.session.isDeleted).toEqual(undefined)
+      ShowStore.removeSession()
+      expect(ShowStore.session.isDeleted).toEqual(true)
+    })
+  })
+
   describe('#handleActions', () => {
     describe('with setSession as an action', () => {
       beforeEach(() => {
@@ -39,6 +47,17 @@ describe('ShowStore', () => {
         expect(ShowStore.session).toEqual({})
         ShowStore.handleActions({type: 'setSession', session: session})
         expect(ShowStore.session).toEqual(session)
+      })
+    })
+
+    describe('with removeSession as an argument', () => {
+      beforeEach(() => {
+        ShowStore.session = {}
+      })
+      it('should set isDeleted to true', () => {
+        expect(ShowStore.session.isDeleted).toEqual(undefined)
+        ShowStore.handleActions({type: "removeSession"})
+        expect(ShowStore.session.isDeleted).toEqual(true)
       })
     })
   })

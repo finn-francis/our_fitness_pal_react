@@ -20,10 +20,18 @@ class ShowStore extends EventEmitter {
     this.emit('change')
   }
 
+  removeSession() {
+    this.session.isDeleted = true
+    this.emit('change')
+  }
+
   handleActions(action) {
     switch (action.type) {
       case 'setSession':
         this.setSession(action.session)
+        break
+      case 'removeSession':
+        this.removeSession()
         break
       default:
         break
