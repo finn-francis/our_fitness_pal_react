@@ -17,10 +17,18 @@ class IndexStore extends EventEmitter {
     this.emit('change')
   }
 
+  removeSession(id) {
+    this.sessions = this.sessions.filter(session => session.id !== id)
+    this.emit("change")
+  }
+
   handleActions(action) {
     switch(action.type) {
       case "setSessions":
         this.setSessions(action.sessions)
+        break
+      case "removeSession":
+        this.removeSession(action.id)
         break
       default:
         break
