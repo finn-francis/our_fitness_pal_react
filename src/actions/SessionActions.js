@@ -8,7 +8,9 @@ export const setSessions = (sessions) => {
 }
 
 export const clearSessionForm = () => {
-  dispatcher.dispatch({type: 'clearSessionForm'})
+  setTimeout(() => {
+    dispatcher.dispatch({type: 'clearSessionForm'})
+  }, 1)
 }
 
 export const updateSessionForm = (session) => {
