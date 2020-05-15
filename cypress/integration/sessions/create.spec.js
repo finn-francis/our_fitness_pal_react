@@ -2,9 +2,11 @@ import admin from '../../fixtures/users/admin.json'
 import sessionsFixture from '../../fixtures/sessions/all.json'
 
 describe('Creating a new session', () => {
+  const newSession = {"id": 4, "name": "Shoulder day", "description": "push weight above your head", "user_id": admin.id}
+
   const indexUrl = Cypress.env('apiUrl') + '/sessions'
   const postUrl = indexUrl
-  const newSession = {"id": 4, "name": "Shoulder day", "description": "push weight above your head", "user_id": admin.id}
+  const showUrl = indexUrl + `/${newSession.id}`
 
   context('as an authorized user', () => {
     beforeEach(() => {
@@ -23,6 +25,7 @@ describe('Creating a new session', () => {
     context('with valid input', () => {
       beforeEach(() => {
         cy.route('POST', postUrl, {session: newSession})
+        cy.route('GET', showUrl, {session: newSession})
         cy.visit('/sessions')
       })
 
