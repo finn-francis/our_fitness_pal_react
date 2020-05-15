@@ -26,3 +26,21 @@ export const setSession = (session) => {
     session: session
   })
 }
+
+export const clearSelectedSession = () => {
+  dispatcher.dispatch({type: 'clearSelectedSession'})
+}
+
+export const updateSelectedSession = (session) => {
+  dispatcher.dispatch({
+    type: 'updateSelectedSession',
+    session: session
+  })
+}
+
+export const removeSession = (id) => {
+  dispatcher.dispatch({
+    type: 'removeSession',
+    id: id
+  })
+}
