@@ -38,6 +38,7 @@ class Index extends AuthenticateUserBase {
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount()
     IndexStore.removeAllListeners()
     FormStore.removeAllListeners()
     SelectedStore.removeAllListeners()

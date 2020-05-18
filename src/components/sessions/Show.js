@@ -32,6 +32,7 @@ class Show extends AuthenticatedUserBase {
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount()
     ShowStore.removeAllListeners()
     FormStore.removeAllListeners()
   }
