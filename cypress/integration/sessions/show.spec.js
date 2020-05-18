@@ -46,4 +46,12 @@ describe('Viewing the show page for a session', () => {
         .should('contain', session.description)
     })
   })
+
+  context('as an unauthorized user', () => {
+    it('should not allow unauthorized users to access the page', () => {
+      cy.server()
+      cy.route('GET', sessionUrl, {sessions: []})
+      cy.validateAuthorizedUser(sessionPath)
+    })
+  })
 })

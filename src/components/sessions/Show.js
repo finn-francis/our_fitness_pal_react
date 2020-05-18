@@ -1,5 +1,6 @@
 import React from 'react'
 import {Redirect} from 'react-router-dom'
+import AuthenticatedUserBase from '../auth/AuthenticateUserBase'
 import ShowStore from '../../stores/sessions/ShowStore'
 import {fetchSession, deleteSession} from '../../utils/sessions/SessionAPI'
 import FormModalButton from '../modals/FormModalButton'
@@ -8,17 +9,20 @@ import FormStore from '../../stores/sessions/FormStore'
 import { updateSessionForm } from '../../actions/SessionActions'
 import ConfirmationModal from '../modals/ConfirmationModal'
 
-class Show extends React.Component {
+class Show extends AuthenticatedUserBase {
   constructor(props) {
     super(props)
 
     this.state = {
+      ...this.state,
       session: ShowStore.get(),
       sessionForm: FormStore.get()
     }
   }
 
   componentDidMount() {
+    super.componentDidMount()
+
     const {match: {params: {id}}} = this.props
 
     ShowStore.on('change', () => this.setState({session: ShowStore.get()}))
