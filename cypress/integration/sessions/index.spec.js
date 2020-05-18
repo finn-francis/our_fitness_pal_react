@@ -15,6 +15,7 @@ describe('Session index', () => {
           .should('contain', 'New Session')
       )
     }
+
     context('when there are existing sessions', () => {
       beforeEach(() => {
         cy.route('GET', indexUrl, {sessions: sessionsFixture})
@@ -49,6 +50,14 @@ describe('Session index', () => {
 
         newSessionButtonShouldShow()
       })
+    })
+  })
+
+  context('as an unauthorized user', () => {
+    it('should not allow unauthorized users to access the page', () => {
+      cy.server()
+      cy.route('GET', indexUrl, {sessions: []})
+      cy.validateAuthorizedUser('/sessions')
     })
   })
 })

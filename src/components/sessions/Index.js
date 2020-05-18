@@ -1,5 +1,6 @@
 import React from 'react'
 import {Redirect} from 'react-router-dom'
+import AuthenticateUserBase from '../auth/AuthenticateUserBase'
 import IndexStore from '../../stores/sessions/IndexStore'
 import IndexListItem from './IndexListItem'
 import {fetchSessions, deleteSession} from '../../utils/sessions/SessionAPI'
@@ -10,11 +11,12 @@ import FormModalButton from '../modals/FormModalButton'
 import ConfirmationModal from '../modals/ConfirmationModal'
 import {clearSelectedSession} from "../../actions/SessionActions"
 
-class Index extends React.Component {
+class Index extends AuthenticateUserBase {
   constructor(props) {
     super(props)
 
     this.state = {
+      ...this.state,
       sessions: IndexStore.getAll(),
       sessionForm: FormStore.get(),
       selectedSession: SelectedStore.get()
@@ -27,6 +29,7 @@ class Index extends React.Component {
   }
 
   componentDidMount() {
+    super.componentDidMount()
     IndexStore.on('change', () => this.setState({sessions: IndexStore.getAll()}))
     FormStore.on('change', () => this.setState({sessionForm: FormStore.get()}))
     SelectedStore.on('change', () => this.setState({selectedSession: SelectedStore.get()}))

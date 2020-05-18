@@ -44,7 +44,7 @@ describe('Deleting a session', () => {
       cy.visit(`/sessions/${session.id}`)
     })
 
-    it.only('should delete the session', () => {
+    it('should delete the session', () => {
       cy.get('.delete-session')
         .click('')
 

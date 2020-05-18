@@ -27,3 +27,9 @@
 Cypress.Commands.add("login", (user) => {
   cy.setCookie('user', JSON.stringify({id: user.id, email: user.email}))
 })
+
+Cypress.Commands.add('validateAuthorizedUser', path => {
+  cy.visit(path)
+  cy.location('pathname')
+    .should('eq', '/sign_in')
+})
