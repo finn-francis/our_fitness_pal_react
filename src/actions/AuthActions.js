@@ -37,3 +37,7 @@ export const clearCurrentUser = () => {
     })
   })
 }
+
+export const setUnauthorizedState = () => {
+  dispatcher.dispatch({type: 'setUnauthorizedState'})
+}

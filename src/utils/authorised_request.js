@@ -1,4 +1,6 @@
 import Cookies from 'js-cookie'
+import _ from 'lodash'
+import {setUnauthorizedState} from '../actions/AuthActions'
 
 export const authorisedHeaders = () => {
   let token = Cookies.get('token')
@@ -17,4 +19,12 @@ export const defaultHeaders = () => {
       "Content-Type": "application/json"
     }
   )
+}
+
+export const handleErrors = (error) => {
+  if (_.get(error, ['response', 'status']) === 401) {
+    setUnauthorizedState()
+  } else {
+    console.log(error.message)
+  }
 }
