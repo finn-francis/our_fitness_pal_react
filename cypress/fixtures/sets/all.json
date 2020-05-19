@@ -1,0 +1,24 @@
+[
+  {"id": 1, "name": "Chest super-set", "set_exercises": {
+    "0": {
+      "exercise_name": "Bench Press",
+      "unit": "Reps"
+    },
+    "1": {
+      "exercise_name": "Incline Press",
+      "unit": "Reps"
+    }
+  }},
+  {"id": 2, "name": "After-burner set", "set_exercises": {
+    "0": {
+      "exercise_name": "Incline Flys",
+      "unit": "Time"
+    }
+  }},
+  {"id": 3, "name": "Run to finish", "set_exercises": {
+    "0": {
+      "exercise_name": "Cardio - Run",
+      "unit": "Distance"
+    }
+  }}
+]
