@@ -28,22 +28,29 @@ const NavBar = (props) => {
     )
   }
 
-  const navBarItems = () => {
-    const navBarItems = {
-      home: {text: "Home", route: "/"},
-      exercises: {text: "Exercises", route: "/exercises"},
+  const renderNavItem = (navItem, i) => {
+    if (!navItem.authRequired || auth) {
+      return (
+        <li className="nav-item" key={i}>
+          <NavLink className="nav-link-item pl-3" exact to={navItem.route}>{navItem.text}</NavLink>
+        </li>
+        )
     }
+  }
+
+  const navBarItems = () => {
+    const navItems = [
+      {text: "Home", route: "/"},
+      {text: "Exercises", route: "/exercises"},
+      {text: "Sessions", route: "/sessions", authRequired: true}
+    ]
 
 
     return (
       <>
         <ul id="navbar-list" className="navbar-nav mr-auto mt-2 mt-lg-0">
           {
-            Object.keys(navBarItems).map((key, i) => (
-              <li key={i} className={"nav-item"}>
-                <NavLink className={"nav-link-item pl-3"} exact to={navBarItems[key].route}>{navBarItems[key].text}</NavLink>
-              </li>
-            ))
+            navItems.map((navItem, i) => renderNavItem(navItem, i))
           }
         </ul>
       </>
