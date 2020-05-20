@@ -3,10 +3,12 @@ import '../assets/stylesheets/App.css'
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from 'react-router-dom'
 
 import AuthStore from '../stores/AuthStore'
+import AuthorizedStore from '../stores/auth/AuthorizedStore'
 import Home from './Home'
 import NavBar from './NavBar'
 import ExerciseIndex from './exercise/Index'
@@ -15,8 +17,8 @@ import SessionShow from './sessions/Show'
 import SignUpForm from './auth/SignUpForm'
 import SignInForm from './auth/SignInForm'
 import {clearCurrentUser} from '../actions/AuthActions'
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {ToastContainer, toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 
 class App extends React.Component {
@@ -24,21 +26,38 @@ class App extends React.Component {
     super(props)
 
     this.state = {
-      auth: AuthStore.getAll()
+      auth: AuthStore.getAll(),
+      authorization: AuthorizedStore.get()
     }
   }
 
   componentDidMount() {
     AuthStore.on("change", () => this.setState({auth: AuthStore.getAll()}))
+    AuthorizedStore.on("change", () => this.setState({authorization: AuthorizedStore.get()}))
+
+    if (AuthorizedStore.get().redirectToLogin)
+      this.setState({authorization: AuthorizedStore.get()})
   }
 
   logout() {
     clearCurrentUser()
   }
 
+  handleAuthorization() {
+    if (this.state.authorization.redirectToLogin) {
+      toast.error('You must be logged in to view this page', {
+        toastId: 'unauthorized',
+        position: toast.POSITION.BOTTOM_RIGHT
+      })
+
+      return <Redirect to='/sign_in' />
+    }
+  }
+
   render() {
     return (
       <Router>
+        {this.handleAuthorization()}
         <ToastContainer />
         <NavBar {...this.state}/>
         <Switch>
@@ -53,4 +72,4 @@ class App extends React.Component {
     )
   }
 }
-export default App;
+export default App

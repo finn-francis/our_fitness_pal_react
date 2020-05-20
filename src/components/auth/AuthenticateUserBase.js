@@ -1,6 +1,6 @@
 import React from 'react'
 import AuthStore from '../../stores/AuthStore'
-import {toast} from 'react-toastify'
+import {setUnauthorizedState} from '../../actions/AuthActions'
 
 // This class is a superclass for any stateful component that requires the user to be logged in
 //
@@ -51,12 +51,8 @@ class AuthenticateUserBase extends React.Component {
   }
 
   authorizeCurrentUser() {
-    if (this.state.currentUser === undefined) {
-      this.props.history.push('/sign_in')
-      toast.error('You must be logged in to view this page', {
-        position: toast.POSITION.BOTTOM_RIGHT
-      })
-    }
+    if (this.state.currentUser === undefined)
+      setUnauthorizedState()
   }
 }
 

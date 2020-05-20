@@ -39,5 +39,7 @@ export const clearCurrentUser = () => {
 }
 
 export const setUnauthorizedState = () => {
-  dispatcher.dispatch({type: 'setUnauthorizedState'})
+  setTimeout(() => {
+    dispatcher.dispatch({type: 'setUnauthorizedState'})
+  })
 }
