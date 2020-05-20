@@ -76,9 +76,11 @@ describe('Session index', () => {
 
   context('as an unauthorized user', () => {
     it('should not allow unauthorized users to access the page', () => {
-      cy.server()
-      cy.route('GET', indexUrl, {sessions: []})
-      cy.validateAuthorizedUser('/sessions')
+      cy.validateAuthorizedUser({
+        action: () => {cy.visit('/sessions')},
+        url: indexUrl,
+        method: 'GET'
+      })
     })
 
     it('should not display sessions in the navbar', () => {

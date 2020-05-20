@@ -28,8 +28,17 @@ Cypress.Commands.add("login", (user) => {
   cy.setCookie('user', JSON.stringify({id: user.id, email: user.email}))
 })
 
-Cypress.Commands.add('validateAuthorizedUser', path => {
-  cy.visit(path)
+Cypress.Commands.add('validateAuthorizedUser', ({action, url, method}) => {
+  cy.server()
+  cy.route({
+    method: method,
+    url: url,
+    status: 401,
+    response: {
+      error: {message: 'Unauthorized'}
+    }
+  })
+  action()
   cy.location('pathname')
     .should('eq', '/sign_in')
 })

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {BASE_URL} from '../../constants/AppConstants'
 import {setSessions, updateSessionForm, setSession, clearSelectedSession, removeSession} from '../../actions/SessionActions'
-import {authorisedHeaders} from '../authorised_request.js'
+import {authorisedHeaders, handleErrors} from '../authorised_request.js'
 
 export const fetchSessions = () => {
   axios.get(`${BASE_URL}/sessions`, {
@@ -14,7 +14,7 @@ export const fetchSessions = () => {
         throw new Error("Network response was not ok.")
       }
     })
-    .catch(error => console.log(error.message))
+    .catch(error => handleErrors(error))
 }
 
 export const createSession = (session) => {
@@ -42,7 +42,10 @@ export const createSession = (session) => {
         throw new Error("Network response was not ok.")
       }
     })
-    .catch(error => console.log(error.message))
+    .catch(error => {
+      updateSessionForm({closeForm: true})
+      handleErrors(error)
+    })
 }
 
 export const fetchSession = (id) => {
@@ -86,7 +89,10 @@ export const updateSession = (session) => {
         throw new Error("Network response was not ok.")
       }
     })
-    .catch(error => console.log(error.message))
+    .catch(error => {
+      updateSessionForm({closeForm: true})
+      handleErrors(error)
+    })
 }
 
 export const deleteSession = (id) => {
@@ -101,5 +107,5 @@ export const deleteSession = (id) => {
         throw new Error("Network response was not ok.")
       }
     })
-    .catch(error => console.log(error.message))
+    .catch(error => handleErrors(error))
 }

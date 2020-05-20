@@ -11,6 +11,24 @@ describe('Exercise creation', () => {
       cy.login(admin)
     })
 
+    const fillExerciseForm = () => {
+      cy.get('#exercise-modal-button')
+        .click()
+
+      cy.get('#exerciseName')
+        .should('be.visible')
+        .type('Squat', {force: true})
+        .should('have.value', 'Squat')
+
+      cy.get('#exerciseDescription')
+        .should('be.visible')
+        .type('Go low!', {force: true})
+        .should('have.value', 'Go low!')
+
+      cy.get('#exerciseForm button[type="submit"]')
+        .click()
+    }
+
     context('success', () => {
       beforeEach(() => {
         cy.route('POST', postUrl, {exercise: {id:1, name: 'Squat', description: 'Go low!'}})
@@ -22,21 +40,7 @@ describe('Exercise creation', () => {
           .as('exerciseList')
           .should('have.length', 0)
 
-        cy.get('#exercise-modal-button')
-          .click()
-
-        cy.get('#exerciseName')
-          .should('be.visible')
-          .type('Squat', {force: true})
-          .should('have.value', 'Squat')
-
-        cy.get('#exerciseDescription')
-          .should('be.visible')
-          .type('Go low!', {force: true})
-          .should('have.value', 'Go low!')
-
-        cy.get('#exerciseForm button[type="submit"]')
-          .click()
+        fillExerciseForm()
 
         cy.get('#exercise-list')
           .should('have.length', 1)
@@ -54,27 +58,25 @@ describe('Exercise creation', () => {
           .as('exerciseList')
           .should('have.length', 0)
 
-        cy.get('#exercise-modal-button')
-          .click()
-
-
-        cy.get('#exerciseName')
-          .should('be.visible')
-          .type('Squat', {force: true})
-          .should('have.value', 'Squat')
-
-        cy.get('#exerciseDescription')
-          .should('be.visible')
-          .type('Go low!', {force: true})
-          .should('have.value', 'Go low!')
-
-        cy.get('#exerciseForm button[type="submit"]')
-          .click()
+        fillExerciseForm()
 
         cy.get('#exercise-list')
           .should('have.length', 0)
         cy.get('.alert-danger')
           .should('contain', 'Must be unique')
+      })
+    })
+
+    context('as an unauthorized user', () => {
+      it('should redirect them to the sign in page', () => {
+        cy.validateAuthorizedUser({
+          action: () => {
+            cy.visit('/exercises')
+            fillExerciseForm()
+          },
+          url: postUrl,
+          method: 'POST'
+        })
       })
     })
   })

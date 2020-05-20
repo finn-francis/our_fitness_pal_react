@@ -1,7 +1,7 @@
 import {BASE_URL} from '../../constants/AppConstants'
 import {setExercises, updateExerciseForm, appendExercise, updateEditedExercise, removeExercise, clearSelectedExercise} from '../../actions/ExerciseActions'
 import { toast } from 'react-toastify'
-import {authorisedHeaders} from '../authorised_request.js'
+import {authorisedHeaders, handleErrors} from '../authorised_request.js'
 import axios from 'axios'
 
 export const fetchExerciseIndex = () => {
@@ -46,7 +46,10 @@ const sendExerciseRequest = (exercise, url, method) => {
         throw new Error("Network response was not ok.")
       }
     })
-    .catch(error => console.log(error.message))
+    .catch(error => {
+      updateExerciseForm({closeForm: true})
+      handleErrors(error)
+    })
 }
 
 const toastNotification = (message) => {
@@ -76,5 +79,5 @@ export const deleteExercise = (exerciseId) => {
         throw new Error("Network response was not ok.")
       }
     })
-    .catch(error => console.log(error.message))
+    .catch(error => handleErrors(error))
 }

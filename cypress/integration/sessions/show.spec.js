@@ -49,9 +49,11 @@ describe('Viewing the show page for a session', () => {
 
   context('as an unauthorized user', () => {
     it('should not allow unauthorized users to access the page', () => {
-      cy.server()
-      cy.route('GET', sessionUrl, {sessions: []})
-      cy.validateAuthorizedUser(sessionPath)
+      cy.validateAuthorizedUser({
+        action: () => {cy.visit(sessionPath)},
+        url: sessionUrl,
+        method: 'GET'
+      })
     })
   })
 })
