@@ -56,4 +56,17 @@ describe('Viewing the show page for a session', () => {
       })
     })
   })
+
+  context('as a user trying to access another users session', () => {
+    let otherSessionPath = '/sessions/10000'
+    let otherSessionUrl = Cypress.env('apiUrl') + otherSessionPath
+
+    it('should not allow forbidden users to access the page', () => {
+      cy.validateUserForbidden({
+        action: () => {cy.visit(otherSessionPath)},
+        url: otherSessionUrl,
+        method: 'GET'
+      })
+    })
+  })
 })

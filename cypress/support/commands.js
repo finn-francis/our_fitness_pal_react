@@ -42,3 +42,18 @@ Cypress.Commands.add('validateAuthorizedUser', ({action, url, method}) => {
   cy.location('pathname')
     .should('eq', '/sign_in')
 })
+
+Cypress.Commands.add('validateUserForbidden', ({action, url, method}) => {
+  cy.server()
+  cy.route({
+    method: method,
+    url: url,
+    status: 403,
+    response: {
+      error: {message: 'Forbidden'}
+    }
+  })
+  action()
+  cy.location('pathname')
+    .should('eq', '/')
+})

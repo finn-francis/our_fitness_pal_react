@@ -35,8 +35,7 @@ class App extends React.Component {
     AuthStore.on("change", () => this.setState({auth: AuthStore.getAll()}))
     AuthorizedStore.on("change", () => this.setState({authorization: AuthorizedStore.get()}))
 
-    if (AuthorizedStore.get().redirectToLogin)
-      this.setState({authorization: AuthorizedStore.get()})
+    this.handleAuthorization()
   }
 
   logout() {
@@ -44,13 +43,21 @@ class App extends React.Component {
   }
 
   handleAuthorization() {
-    if (this.state.authorization.redirectToLogin) {
-      toast.error('You must be logged in to view this page', {
-        toastId: 'unauthorized',
-        position: toast.POSITION.BOTTOM_RIGHT
-      })
+    switch (this.state.authorization.status) {
+      case 401:
+        toast.error('You must be logged in to view this page', {
+          toastId: 'unauthorized',
+          position: toast.POSITION.BOTTOM_RIGHT
+        })
 
-      return <Redirect to='/sign_in' />
+        return <Redirect to='/sign_in' />
+      case 403:
+        toast.error('You do not have permission to view this page', {
+          toastId: 'forbidden',
+          position: toast.POSITION.BOTTOM_RIGHT
+        })
+        return <Redirect to='/' />
+      default:
     }
   }
 

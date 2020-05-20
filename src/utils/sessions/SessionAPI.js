@@ -60,7 +60,7 @@ export const fetchSession = (id) => {
         throw new Error("Network response was not ok")
       }
     })
-    .catch(error => console.log(error.message))
+    .catch(error => handleErrors(error))
 }
 
 export const updateSession = (session) => {
