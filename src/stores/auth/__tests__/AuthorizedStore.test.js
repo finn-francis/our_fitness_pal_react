@@ -3,12 +3,18 @@ import AuthorizedStore from '../AuthorizedStore'
 describe('AuthorizedStore', () => {
   const emptyStore = {
     status: 200,
-    redirectToLogin: false
+    redirectToLogin: false,
+    redirectToHome: false
   }
 
   const unauthorized = {
     status: 401,
     redirectToLogin: true
+  }
+
+  const forbidden = {
+    status: 403,
+    redirectToHome: true
   }
 
   afterEach(() => {
@@ -41,6 +47,14 @@ describe('AuthorizedStore', () => {
     })
   })
 
+  describe('forbidden', () => {
+    it('should set the store to the forbidden state', () => {
+      expect(AuthorizedStore.state).toEqual(emptyStore)
+      AuthorizedStore.forbidden()
+      expect(AuthorizedStore.state).toEqual(forbidden)
+    })
+  })
+
   describe('handleActions', () => {
     describe('with resetAuthorizedState as an argument', () => {
       beforeEach(() => {
@@ -59,6 +73,14 @@ describe('AuthorizedStore', () => {
         expect(AuthorizedStore.state).toEqual(emptyStore)
         AuthorizedStore.handleActions({type: 'setUnauthorizedState'})
         expect(AuthorizedStore.state).toEqual(unauthorized)
+      })
+    })
+
+    describe('with setForbiddenState as an argument', () => {
+      it('should set the store to the forbidden state', () => {
+        expect(AuthorizedStore.state).toEqual(emptyStore)
+        AuthorizedStore.handleActions({type: 'setForbiddenState'})
+        expect(AuthorizedStore.state).toEqual(forbidden)
       })
     })
   })

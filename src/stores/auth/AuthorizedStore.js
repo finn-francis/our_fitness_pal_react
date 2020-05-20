@@ -15,7 +15,8 @@ class AuthorizedStore extends EventEmitter {
   reset() {
     this.state = {
       status: 200,
-      redirectToLogin: false
+      redirectToLogin: false,
+      redirectToHome: false
     }
   }
 
@@ -23,6 +24,15 @@ class AuthorizedStore extends EventEmitter {
     this.state = {
       status: 401,
       redirectToLogin: true
+    }
+
+    this.emit('change')
+  }
+
+  forbidden() {
+    this.state = {
+      status: 403,
+      redirectToHome: true
     }
 
     this.emit('change')
@@ -36,6 +46,9 @@ class AuthorizedStore extends EventEmitter {
         break
       case 'setUnauthorizedState':
         this.unauthorized()
+        break
+      case 'setForbiddenState':
+        this.forbidden()
         break
       default:
         break

@@ -43,3 +43,9 @@ export const setUnauthorizedState = () => {
     dispatcher.dispatch({type: 'setUnauthorizedState'})
   })
 }
+
+export const setForbiddenState = () => {
+  setTimeout(() => {
+    dispatcher.dispatch({type: 'setForbiddenState'})
+  })
+}
