@@ -46,4 +46,27 @@ describe('Viewing the show page for a session', () => {
         .should('contain', session.description)
     })
   })
+
+  context('as an unauthorized user', () => {
+    it('should not allow unauthorized users to access the page', () => {
+      cy.validateAuthorizedUser({
+        action: () => {cy.visit(sessionPath)},
+        url: sessionUrl,
+        method: 'GET'
+      })
+    })
+  })
+
+  context('as a user trying to access another users session', () => {
+    let otherSessionPath = '/sessions/10000'
+    let otherSessionUrl = Cypress.env('apiUrl') + otherSessionPath
+
+    it('should not allow forbidden users to access the page', () => {
+      cy.validateUserForbidden({
+        action: () => {cy.visit(otherSessionPath)},
+        url: otherSessionUrl,
+        method: 'GET'
+      })
+    })
+  })
 })

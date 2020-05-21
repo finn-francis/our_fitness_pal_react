@@ -10,7 +10,7 @@ const FormModal = (props) => {
   const closeButtonRef = React.useRef(null)
 
   useEffect(() => {
-    if (props.exercise.responseSuccess)
+    if (props.exercise.responseSuccess || props.exercise.closeForm)
       closeButtonRef.current.click()
   })
 

@@ -15,6 +15,7 @@ describe('Session index', () => {
           .should('contain', 'New Session')
       )
     }
+
     context('when there are existing sessions', () => {
       beforeEach(() => {
         cy.route('GET', indexUrl, {sessions: sessionsFixture})
@@ -49,6 +50,46 @@ describe('Session index', () => {
 
         newSessionButtonShouldShow()
       })
+    })
+
+    context("navigating to the page through the navbar", () => {
+      beforeEach(() =>{
+        cy.route('GET', indexUrl, {sessions: sessionsFixture})
+        cy.visit('/')
+      })
+
+      it('should allow the user to click on a link in the nav bar', () => {
+        cy.get('.navbar-toggler')
+          .click()
+
+        cy.get('.nav-link-item[href="/sessions"]')
+          .click()
+
+        cy.location('pathname')
+          .should('eq', '/sessions')
+
+        cy.get('.session-list-item')
+          .should('have.length', 3)
+      })
+    })
+  })
+
+  context('as an unauthorized user', () => {
+    it('should not allow unauthorized users to access the page', () => {
+      cy.validateAuthorizedUser({
+        action: () => {cy.visit('/sessions')},
+        url: indexUrl,
+        method: 'GET'
+      })
+    })
+
+    it('should not display sessions in the navbar', () => {
+      cy.visit('/')
+      cy.get('.navbar-toggler')
+        .click()
+
+      cy.get('.nav-link-item[href="/sessions"]')
+        .should('not.exist')
     })
   })
 })

@@ -22,9 +22,11 @@ export const updateSignInForm = (user) => {
 }
 
 export const clearFormUser = (user) => {
-  dispatcher.dispatch({
-    type: 'clearFormUser',
-    user: user
+  setTimeout(() => {
+    dispatcher.dispatch({
+      type: 'clearFormUser',
+      user: user
+    })
   })
 }
 
@@ -33,5 +35,17 @@ export const clearCurrentUser = () => {
     dispatcher.dispatch({
       type: 'clearCurrentUser'
     })
+  })
+}
+
+export const setUnauthorizedState = () => {
+  setTimeout(() => {
+    dispatcher.dispatch({type: 'setUnauthorizedState'})
+  })
+}
+
+export const setForbiddenState = () => {
+  setTimeout(() => {
+    dispatcher.dispatch({type: 'setForbiddenState'})
   })
 }

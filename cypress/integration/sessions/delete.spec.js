@@ -24,16 +24,30 @@ describe('Deleting a session', () => {
         .should('contain', session.name)
     })
 
-    it('should remove the session from the index', () => {
+    const deleteSession = () => {
       cy.get(':nth-child(1) > .delete-session')
         .click()
         .get('.modal-content > .modal-footer > .btn-info')
         .click()
+    }
+
+    it('should remove the session from the index', () => {
+      deleteSession()
 
       cy.get('.session-list-item')
         .should('have.length', 2)
       cy.get('#session-list :nth-child(1)')
         .should('not.contain', session.name)
+    })
+
+    context('as an unauthorized user', () => {
+      it('should redirect the user to the sign_in page', () => {
+        cy.validateAuthorizedUser({
+          action: () => {deleteSession()},
+          url: deleteUrl,
+          method: 'DELETE'
+        })
+      })
     })
   })
 
@@ -44,12 +58,16 @@ describe('Deleting a session', () => {
       cy.visit(`/sessions/${session.id}`)
     })
 
-    it.only('should delete the session', () => {
+    const deleteSession = () => {
       cy.get('.delete-session')
         .click('')
 
       cy.get('.modal-content > .modal-footer > .btn-info')
         .click()
+    }
+
+    it('should delete the session', () => {
+      deleteSession()
 
       cy.location('pathname')
         .should('eq', '/sessions')
@@ -59,6 +77,16 @@ describe('Deleting a session', () => {
 
       cy.get('#session-list :nth-child(1)')
         .should('not.contain', session.name)
+    })
+
+    context('as an unauthorized user', () => {
+      it('should redirect the user to the sign_in page', () => {
+        cy.validateAuthorizedUser({
+          action: () => {deleteSession()},
+          url: deleteUrl,
+          method: 'DELETE'
+        })
+      })
     })
   })
 })

@@ -1,7 +1,7 @@
 import { EventEmitter } from "events"
 import dispatcher from '../dispatcher/AppDispatcher'
 import Cookies from 'js-cookie'
-import { toast } from 'react-toastify';
+import { toast } from 'react-toastify'
 
 class AuthStore extends EventEmitter {
   constructor() {
@@ -13,13 +13,6 @@ class AuthStore extends EventEmitter {
       }
     }
   }
-
-  // In order to use this store the following code can be used:
-  // import AuthStore from '../stores/AuthStore'
-  // constructor(props) {
-  //   super(props)
-  //   this.state = AuthStore.getAll()
-  // }
 
   getAll() {
     return Cookies.getJSON('user')
@@ -36,7 +29,7 @@ class AuthStore extends EventEmitter {
     Cookies.remove('user')
     toast.success("Signed out succesfully", {
       position: toast.POSITION.BOTTOM_RIGHT
-    });
+    })
     this.emit("change")
   }
 
@@ -44,12 +37,12 @@ class AuthStore extends EventEmitter {
     switch(action.type) {
       case "setCurrentUser":
         this.setCurrentUser(action.user)
-        break;
+        break
       case "clearCurrentUser":
         this.clearCurrentUser(action.user)
-        break;
+        break
       default:
-        break;
+        break
     }
   }
 }

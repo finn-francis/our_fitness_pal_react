@@ -8,13 +8,21 @@ describe('Creating a new session', () => {
   const postUrl = indexUrl
   const showUrl = indexUrl + `/${newSession.id}`
 
-  context('as an authorized user', () => {
-    beforeEach(() => {
-      cy.login(admin)
-      cy.server()
-      cy.route('GET', indexUrl, {sessions: sessionsFixture})
-    })
+  beforeEach(() => {
+    cy.login(admin)
+    cy.server()
+    cy.route('GET', indexUrl, {sessions: sessionsFixture})
+  })
 
+  const fillInSession = () => {
+    cy.get('#sessionName')
+    .type(newSession.name, {force: true})
+
+    cy.get('#sessionDescription')
+      .type(newSession.description, {force: true})
+  }
+
+  context('as an authorized user', () => {
     const theOriginalSessionsAreShowing = () => {
       return (
         cy.get('.session-list-item')
@@ -34,11 +42,7 @@ describe('Creating a new session', () => {
         cy.get('#session-modal-button')
           .click()
 
-        cy.get('#sessionName')
-          .type(newSession.name, {force: true})
-
-        cy.get('#sessionDescription')
-          .type(newSession.description, {force: true})
+        fillInSession()
 
         cy.get('button[type="submit"')
           .click()
@@ -59,11 +63,7 @@ describe('Creating a new session', () => {
         cy.get('#session-modal-button')
           .click()
 
-        cy.get('#sessionName')
-          .type(newSession.name, {force: true})
-
-        cy.get('#sessionDescription')
-          .type(newSession.description, {force: true})
+        fillInSession()
 
         cy.get('button[type="submit"')
           .click()
@@ -75,6 +75,23 @@ describe('Creating a new session', () => {
 
         cy.get('.session-list-item')
           .should('have.length', 3)
+      })
+    })
+  })
+
+  context('as an unauthorized user', () => {
+    it('should not allow unauthorized users to access the page', () => {
+      cy.validateAuthorizedUser({
+        action: () => {
+          cy.visit('/sessions'),
+          cy.get('#session-modal-button')
+            .click()
+          fillInSession()
+          cy.get('button[type="submit"')
+            .click()
+        },
+        url: postUrl,
+        method: 'POST'
       })
     })
   })

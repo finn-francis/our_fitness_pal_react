@@ -24,7 +24,7 @@ describe('Updating a session', () => {
         .should('contain', session.description)
     })
 
-    it('should update the session record', () => {
+    const updateUser = () => {
       cy.get('#session-form-button')
         .click()
 
@@ -36,11 +36,25 @@ describe('Updating a session', () => {
 
       cy.get('#edit-session-modal button[type="submit"]')
         .click()
+    }
+
+    it('should update the session record', () => {
+      updateUser()
 
       cy.get('.session-title')
         .should('contain', updatedSession.name)
         .get('.session-description')
         .should('contain', updatedSession.description)
+    })
+
+    context('as an unauthorized user', () => {
+      it('should redirect them to the sign in page', () => {
+        cy.validateAuthorizedUser({
+          action: () => { updateUser() },
+          url: showUrl,
+          method: 'PUT'
+        })
+      })
     })
   })
 
