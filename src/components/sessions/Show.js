@@ -2,6 +2,7 @@ import React from 'react'
 import {Redirect} from 'react-router-dom'
 import ShowStore from '../../stores/sessions/ShowStore'
 import {fetchSession, deleteSession} from '../../utils/sessions/SessionAPI'
+import Index from '../sets/Index'
 import FormModalButton from '../modals/FormModalButton'
 import FormModal from './FormModal'
 import FormStore from '../../stores/sessions/FormStore'
@@ -44,20 +45,21 @@ class Show extends React.Component {
     if (this.state.session.isDeleted) {
       return <Redirect to='/sessions' />
     }
-
     const {session: {name, description}, sessionForm} = this.state
     const formModalId = 'edit-session-modal'
     const confirmationModalId = 'delete-session-modal'
 
     return (
       <div className="container">
-        <button className="btn btn-danger delete-session" data-toggle="modal" data-target={`#${confirmationModalId}`}>delete</button>
         <FormModalButton id='session-form-button' modalId={formModalId} handleClick={this.setResponseSuccessToNull}>
           edit
         </FormModalButton>
+        <button className="btn btn-danger delete-session" data-toggle="modal" data-target={`#${confirmationModalId}`}>delete</button>
 
         <h1 className='session-title'>{name}</h1>
         <section className='session-description'>{description}</section>
+
+        <Index sessionId={this.props.match.params.id}/>
 
         <FormModal session={sessionForm} id={formModalId} title='Session' onClose={() => {}} />
         <ConfirmationModal
