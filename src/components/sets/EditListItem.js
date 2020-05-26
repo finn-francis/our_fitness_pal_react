@@ -28,10 +28,9 @@ const EditListItem = (props) => {
   const renderExerciseOptions = () => {
     return(
       set_exercises.map((set_exercise, index) =>
-        <>
+        <div key={`set-exercise-${index}`}>
           <Input label="Exercise" labelHtmlFor="exercise">
             <select
-            key={`exercise-${index}`}
             name={`set_exercises|${index}|exercise_id`}
             id="setExerciseExercise"
             className="form-control"
@@ -47,14 +46,13 @@ const EditListItem = (props) => {
           </Input>
           <Input label="Unit" labelHtmlFor="unit">
             <select
-            key={`unit-${index}`}
             name={`set_exercises|${index}|unit`}
             id="setExerciseUnit"
             className="form-control"
             required
             value={set_exercise.unit}
             onChange={handleChange}
-            allow
+            allow="true"
             >
               <option disabled selected value=""> -- select an option -- </option>
               <option value="Reps">Reps</option>
@@ -62,7 +60,7 @@ const EditListItem = (props) => {
               <option value="Distance">Distance</option>
             </select>
           </Input>
-        </>
+        </div>
       )
     )
   }

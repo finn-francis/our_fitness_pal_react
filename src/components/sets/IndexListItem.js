@@ -1,14 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReadOnlyListItem from './ReadOnlyListItem'
-import FormStore from '../../stores/sets/FormStore'
 import EditListItem from './EditListItem'
 
 class IndexListItem extends React.Component {
   constructor(props) {
     super(props)
 
-    if (props.set.id == "") {
+    if (props.set.id === "") {
       var editMode = true
     }
     else {
